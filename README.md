@@ -28,13 +28,13 @@ git clone git@github.com:juhanikat/ohtuminiprojekti.git
 
 ### Installation
 
-Install the dependencies by running the following command in terminal:
+Install the dependencies by running the following command in the terminal:
 ```bash
 poetry install
 ```
 
 ### Running the Program
-Run the program with command:
+Run the program with the command:
 
 ```bash
 poetry run python3 src/index.py
@@ -42,6 +42,4 @@ poetry run python3 src/index.py
 
 ## Backlog
 
-```bash
-https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing
-```
+[https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing)
