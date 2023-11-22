@@ -37,6 +37,29 @@ class TestCreateEntry(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @patch('entry_writer.input', create=True)
+    def test_overwriting_written_fields_should_be_blocked (self, mock_input):
+        mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', 'author', '']
+
+        expected = {
+            'citation': 'validref',
+            'entry_type': 'book',
+            'author': 'andy',
+            'title': 'titus',
+            'publisher': 'otava',
+            'year': '2023',
+        }
+        result = create_entry()
+        print(result)
+        self.assertEqual(result, expected)
+
+    @patch('entry_writer.input', create=True)
+    def test_complete_entry_with_empty_required_field (self, mock_input):
+        mock_input.side_effect = ['validref', 'book', '']
+
+        result = create_entry()
+        self.assertFalse(result)
+
+    @patch('entry_writer.input', create=True)
     def test_invalid_citation (self, mock_input):
         mock_input.side_effect=['']
 

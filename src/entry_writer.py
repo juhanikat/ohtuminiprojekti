@@ -5,7 +5,8 @@ def create_entry():
     Creates an entry in dictionary format.
 
     This function prompts the user to enter required and optional fields.
-    The required fields are 'citation' and 'entry_type'. Additional required fields based on the entry_type.
+    The required fields are 'citation' and 'entry_type'.
+        Additional required fields may also be included based on the entry type.
 
     Returns:
         Returns a dictionary if inputs are valid.
@@ -51,11 +52,5 @@ def create_entry():
 
         value = input(f"Enter value for {field}:")
         entry[field] = value
-
-    if entry["citation"] == "":
-        return False
-
-    if entry["entry_type"] == "":
-        return False
 
     return entry
