@@ -1,0 +1,1 @@
+![Arkkitehtuuri hahmotelma](architecture.jpg)
