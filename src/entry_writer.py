@@ -9,7 +9,7 @@ def create_entry():
         Additional required fields may also be included based on the entry type.
 
     Returns:
-        tuple: contains a string (name) and a dictionary (fields) if the inputs are valid.
+        string, dictionary: name, fields if the inputs are valid.
         bool: False if the inputs are invalid.
     """
 
@@ -42,7 +42,7 @@ def create_entry():
     # --- Optional fields ---
 
     while True:
-        field = input("Enter field name (leave empty to finish):").strip()
+        field = input("Enter optional field name (leave empty to finish):").strip()
         if not field:
             break
 
