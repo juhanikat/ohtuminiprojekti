@@ -4,4 +4,4 @@ class Reference:
         self.fields = fields
 
     def __str__(self):
-        return f"{self.name}: {self.fields}"
+        return f"{self.name}: {', '.join([key.capitalize() + ': ' + self.fields[key] for key in self.fields])}"
