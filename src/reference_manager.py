@@ -99,8 +99,8 @@ class ReferenceManager:
             bool: Was specified reference found and removed.
         """
         for i in range(len(self.references)):
-            if self.reference.name == name:
-                self.references.remove(i)
+            if self.references[i].name == name:
+                self.references.pop(i)
                 return True
         return False
 
