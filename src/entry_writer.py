@@ -2,7 +2,7 @@ from resources.bibtex_data import REQUIRED_FIELDS
 
 def create_entry():
     """
-    Creates an entry in dictionary format.
+    Creates an entry in a string, dictionary format.
 
     This function prompts the user to enter required and optional fields.
     The required fields are 'citation' and 'entry_type'.
@@ -25,7 +25,10 @@ def create_entry():
 
     # --- Entry type and fields required by it ---
 
-    entry_type = input("Enter the entry type:")
+    entry_types = ", ".join(REQUIRED_FIELDS.keys())
+    print(f"Possible entry types: {entry_types}")
+
+    entry_type = input("Choose the entry type:")
     fields["entry_type"] = entry_type
     if entry_type in REQUIRED_FIELDS:
         for field in REQUIRED_FIELDS[entry_type]:
