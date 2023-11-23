@@ -9,31 +9,31 @@ def create_entry():
         Additional required fields may also be included based on the entry type.
 
     Returns:
-        Returns a dictionary if inputs are valid.
-        Returns False if the inputs are invalid.
+        tuple: contains a string (name) and a dictionary (fields) if the inputs are valid.
+        bool: False if the inputs are invalid.
     """
 
-    entry = {}
+    fields = {}
 
     # --- Citation key ---
 
     citation_key = input("Enter the citation key:")
     if citation_key == "":
+        print ("Value must not be empty!")
         return False
-    entry["citation"] = citation_key
 
 
     # --- Entry type and fields required by it ---
 
     entry_type = input("Enter the entry type:")
-    entry["entry_type"] = entry_type
+    fields["entry_type"] = entry_type
     if entry_type in REQUIRED_FIELDS:
         for field in REQUIRED_FIELDS[entry_type]:
             value = input(f"Enter value for {field}: ")
             if value == "":
                 print ("Value must be included for a required field!")
                 return False
-            entry[field] = value
+            fields[field] = value
     else:
         print ("Invalid entry type!")
         return False
@@ -46,11 +46,16 @@ def create_entry():
         if not field:
             break
 
-        if field in entry:
-            print(f"The field '{field}' has already been entered. Please enter a different field.")
+        if field in fields or field == "citation":
+            print(f"The field '{field}' has already been entered. Enter a different field.")
             continue
 
         value = input(f"Enter value for {field}:")
-        entry[field] = value
 
-    return entry
+        if value == "":
+            print("Value must not be empty! Enter a different value.")
+            continue
+
+        fields[field] = value
+
+    return citation_key, fields

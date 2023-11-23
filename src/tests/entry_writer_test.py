@@ -7,24 +7,26 @@ class TestCreateEntry(unittest.TestCase):
     def test_complete_entry (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', '']
 
-        expected = {
-            'citation': 'validref',
+        expected_citation = 'validref'
+        expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
             'title': 'titus',
             'publisher': 'otava',
             'year': '2023'
         }
+        expected_result = (expected_citation, expected_dict)
+
         result = create_entry()
         print(result)
-        self.assertEqual(result, expected)
+        self.assertEqual(result, expected_result)
 
     @patch('entry_writer.input', create=True)
     def test_complete_entry_with_optional_fields (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', 'volume', 'first edition', '']
 
-        expected = {
-            'citation': 'validref',
+        expected_citation = 'validref'
+        expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
             'title': 'titus',
@@ -32,25 +34,29 @@ class TestCreateEntry(unittest.TestCase):
             'year': '2023',
             'volume': 'first edition'
         }
+        expected_result = (expected_citation, expected_dict)
+
         result = create_entry()
         print(result)
-        self.assertEqual(result, expected)
+        self.assertEqual(result, expected_result)
 
     @patch('entry_writer.input', create=True)
     def test_overwriting_written_fields_should_be_blocked (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', 'author', '']
 
-        expected = {
-            'citation': 'validref',
+        expected_citation = 'validref'
+        expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
             'title': 'titus',
             'publisher': 'otava',
-            'year': '2023',
+            'year': '2023'
         }
+        expected_result = (expected_citation, expected_dict)
+        
         result = create_entry()
         print(result)
-        self.assertEqual(result, expected)
+        self.assertEqual(result, expected_result)
 
     @patch('entry_writer.input', create=True)
     def test_complete_entry_with_empty_required_field (self, mock_input):
