@@ -1,5 +1,5 @@
-from entry_writer import create_entry
-from reference_manager import ReferenceManager
+from services.entry_writer import create_entry
+from services.reference_manager import ReferenceManager
 
 
 def list_all_references(manager) -> str:

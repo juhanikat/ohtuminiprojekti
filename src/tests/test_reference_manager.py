@@ -1,6 +1,6 @@
 import unittest
 from entities.reference import Reference
-from reference_manager import ReferenceManager
+from services.reference_manager import ReferenceManager
 
 class TestReferenceManager(unittest.TestCase):
     def setUp(self):

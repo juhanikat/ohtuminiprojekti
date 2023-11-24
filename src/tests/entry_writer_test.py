@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from entry_writer import create_entry
+from services.entry_writer import create_entry
 
 class TestCreateEntry(unittest.TestCase):
     @patch('entry_writer.input', create=True)

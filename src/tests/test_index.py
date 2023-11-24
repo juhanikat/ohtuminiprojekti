@@ -1,7 +1,7 @@
 import unittest
 
 from index import list_all_references
-from reference_manager import ReferenceManager
+from services.reference_manager import ReferenceManager
 from entities.reference import Reference
 
 
