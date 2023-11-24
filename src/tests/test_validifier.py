@@ -1,7 +1,7 @@
 import unittest
 import services.validifier as validifier
 
-class TestCreateEntry(unittest.TestCase):
+class TestValidifier(unittest.TestCase):
     def test_validate_as_positive_integer_positive_integer_returns_true (self):
         self.assertTrue(validifier.validate_as_positive_integer(5))
         
