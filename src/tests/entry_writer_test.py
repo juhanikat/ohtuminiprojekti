@@ -2,8 +2,10 @@ import unittest
 from unittest.mock import patch
 from services.entry_writer import create_entry
 
+entry_writer_path = "services.entry_writer"
+
 class TestCreateEntry(unittest.TestCase):
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', '']
 
@@ -21,7 +23,7 @@ class TestCreateEntry(unittest.TestCase):
         print(result)
         self.assertEqual(result, expected_result)
 
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry_with_optional_fields (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', 'volume', 'first edition', '']
 
@@ -40,7 +42,7 @@ class TestCreateEntry(unittest.TestCase):
         print(result)
         self.assertEqual(result, expected_result)
 
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_overwriting_written_fields_should_be_blocked (self, mock_input):
         mock_input.side_effect = ['validref', 'book', 'andy', 'titus', 'otava', '2023', 'author', '']
 
@@ -58,14 +60,14 @@ class TestCreateEntry(unittest.TestCase):
         print(result)
         self.assertEqual(result, expected_result)
 
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry_with_empty_required_field (self, mock_input):
         mock_input.side_effect = ['validref', 'book', '']
 
         result = create_entry()
         self.assertFalse(result)
 
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_invalid_citation (self, mock_input):
         mock_input.side_effect=['']
 
@@ -73,7 +75,7 @@ class TestCreateEntry(unittest.TestCase):
         print(result)
         self.assertFalse(result)
 
-    @patch('entry_writer.input', create=True)
+    @patch(f'{entry_writer_path}.input', create=True)
     def test_invalid_entry_type (self, mock_input):
         mock_input.side_effect=['validref', 'Idontexist']
 
