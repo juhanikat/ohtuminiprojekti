@@ -3,6 +3,7 @@ from resources.bibtex_data import REQUIRED_FIELDS
 def validate_input(type, value):
     """
     Validates the input based on the type and value set as parameters.
+    Use only if you have a type that exists in FIELD_VALIDATORS. Otherwise use the other functions available!
 
     Returns:
         True, if the value is valid or if type is not found within the FIELD_VALIDATORS
