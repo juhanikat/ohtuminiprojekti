@@ -39,7 +39,7 @@ def create_citation_key():
         False if the inputs are invalid.
     """
 
-    citation_key = input("Enter the citation key:")
+    citation_key = input("Enter the citation key:").strip()
     if not validate_input("citation",citation_key):
         return False
     return citation_key
@@ -54,7 +54,7 @@ def choose_entry_type(fields):
     entry_types = ", ".join(REQUIRED_FIELDS.keys())
     print(f"Possible entry types: {entry_types}")
 
-    entry_type = input("Choose the entry type:")
+    entry_type = input("Choose the entry type:").strip()
     if not validate_input("entry_type", entry_type):
         return False
 
@@ -68,7 +68,7 @@ def fill_required_fields(fields):
         False, if inputs invalid
     """
     for field in REQUIRED_FIELDS[fields["entry_type"]]:
-        value = input(f"Enter value for {field}: ")
+        value = input(f"Enter value for {field}: ").strip()
         if not validate_input(field, value):
             return False
         fields[field] = value
@@ -86,7 +86,7 @@ def enter_optional_fields(fields):
             print(f"The field '{field}' has already been entered. Enter a different field.")
             continue
 
-        value = input(f"Enter value for {field}:")
+        value = input(f"Enter value for {field}:").strip()
 
         if not validate_input(field, value):
             continue
