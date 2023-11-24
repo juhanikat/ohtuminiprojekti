@@ -1,4 +1,5 @@
 from resources.bibtex_data import REQUIRED_FIELDS
+from services.validifier import validate_input
 
 def create_entry():
     """
@@ -15,35 +16,67 @@ def create_entry():
 
     fields = {}
 
-    # --- Citation key ---
-
-    citation_key = input("Enter the citation key:")
-    if citation_key == "":
-        print ("Value must not be empty!")
+    citation_key = create_citation_key()
+    if citation_key is False:
         return False
 
+    if choose_entry_type(fields) == False:
+        return False
+    
+    if fill_required_fields(fields) == False:
+        return False
 
-    # --- Entry type and fields required by it ---
+    enter_optional_fields(fields)
 
+    return citation_key, fields
+
+def create_citation_key():
+    """
+    Creates a citation key and returns it based on input if valid.
+
+    Returns:
+        citation_key as input, if input is valid
+        False if the inputs are invalid.
+    """
+
+    citation_key = input("Enter the citation key:")
+    if not validate_input("citation",citation_key):
+        return False
+    return citation_key
+
+def choose_entry_type(fields):
+    """
+    Chooses an entry type based on input and allocates it inside of dict["entry_type"], if entry_type is valid
+
+    Returns:
+        False, if inputs invalid
+    """
     entry_types = ", ".join(REQUIRED_FIELDS.keys())
     print(f"Possible entry types: {entry_types}")
 
     entry_type = input("Choose the entry type:")
-    fields["entry_type"] = entry_type
-    if entry_type in REQUIRED_FIELDS:
-        for field in REQUIRED_FIELDS[entry_type]:
-            value = input(f"Enter value for {field}: ")
-            if value == "":
-                print ("Value must be included for a required field!")
-                return False
-            fields[field] = value
-    else:
-        print ("Invalid entry type!")
+    if not validate_input("entry_type", entry_type):
         return False
 
+    fields["entry_type"] = entry_type
 
-    # --- Optional fields ---
+def fill_required_fields(fields):
+    """
+    Prompts the required fields based on entry_type and fills the information inside the dict[fields] if inputs are valid
 
+    Returns:
+        False, if inputs invalid
+    """
+    for field in REQUIRED_FIELDS[fields["entry_type"]]:
+        value = input(f"Enter value for {field}: ")
+        if not validate_input(field, value):
+            return False
+        fields[field] = value
+
+def enter_optional_fields(fields):
+    """
+    Prompts for optional fields based on user input, populating the information into dict[fields] if inputs are valid.
+    """
     while True:
         field = input("Enter optional field name (leave empty to finish):").strip()
         if not field:
@@ -55,10 +88,7 @@ def create_entry():
 
         value = input(f"Enter value for {field}:")
 
-        if value == "":
-            print("Value must not be empty! Enter a different value.")
+        if not validate_input(field, value):
             continue
 
         fields[field] = value
-
-    return citation_key, fields
