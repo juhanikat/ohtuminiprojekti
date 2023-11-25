@@ -89,10 +89,6 @@ def validate_has_an_entry_type(value):
     return False
 
 
-def validate_has_a_duplicate(value):
-    # TODO
-    return True
-
 FIELD_VALIDATORS = {
     "year": validate_as_positive_integer,
     "citation": [validate_no_whitespace, validate_no_empty],

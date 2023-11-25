@@ -11,7 +11,7 @@ def list_all_references(manager) -> str:
 
 
 def new_entry(manager):
-    entry = create_entry()
+    entry = create_entry(manager)
     if entry:
         # creates new Reference object and adds it to the manager
         manager.New(entry[0], entry[1])
