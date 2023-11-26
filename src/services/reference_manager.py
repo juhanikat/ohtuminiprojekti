@@ -1,9 +1,12 @@
 from entities.reference import Reference
+from .file_manager import get_path
+
 
 class ReferenceManager:
     def __init__(self):
         self.references = list()
-    
+        self.file_path = get_path()  # the file path where data is saved/loaded from
+
     def New(self, name: str, fields: dict = dict()):
         """
         Create a new reference and add it to this manager.
@@ -11,7 +14,7 @@ class ReferenceManager:
         Parameters:
             name (str): Name of the new reference.
             fields (dict, optional): Attribures of the new reference.
-        
+
         Returns:
             None
         """
@@ -23,7 +26,7 @@ class ReferenceManager:
 
         Parameters:
             reference (Reference): The reference to add.
-        
+
         Returns:
             None
         """
@@ -32,8 +35,8 @@ class ReferenceManager:
             self.references.append(reference)
         else:
             raise BaseException(f"Reference with name '{name}' already exists")
-    
-    def Edit(self, name: str, field: str, value = None):
+
+    def Edit(self, name: str, field: str, value=None):
         """
         Edit an attribute in a reference.
 
@@ -44,14 +47,14 @@ class ReferenceManager:
 
         Returns:
             bool: Was specified reference found.
-        
+
         """
         ref = self.FindByName(name)
         if ref == None:
             return False
         ref.fields[field] = value
         return True
-    
+
     def FindByName(self, name: str):
         """
         Get a reference by name.
@@ -85,7 +88,7 @@ class ReferenceManager:
             if field in ref.fields.keys():
                 if ref.fields[field] == value:
                     matches.append(ref)
-        
+
         return matches
 
     def Remove(self, name: str):
@@ -94,7 +97,7 @@ class ReferenceManager:
 
         Parameters:
             name (str): Name of the Reference.
-        
+
         Returns:
             bool: Was specified reference found and removed.
         """
