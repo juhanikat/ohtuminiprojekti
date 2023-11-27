@@ -44,7 +44,7 @@ def ask_for_input(manager: ReferenceManager):
     choice = input(
         "Input a to add a new reference\n"
         "Input l to list all references\n"
-        "Input f to change the save file location\n"
+        "Input f to change save file location\n"
         "Input q to exit\n").strip().lower()
     if choice == 'a':
         new_entry(manager)
