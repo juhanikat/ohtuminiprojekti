@@ -1,5 +1,6 @@
 # ohtuminiprojekti
 [![CI](https://github.com/juhanikat/ohtuminiprojekti/actions/workflows/main.yml/badge.svg)](https://github.com/juhanikat/ohtuminiprojekti/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/juhanikat/ohtuminiprojekti/graph/badge.svg?token=2MRXDOBOKW)](https://codecov.io/gh/juhanikat/ohtuminiprojekti)
 
 Group: Fast Fishes
 
