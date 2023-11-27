@@ -44,3 +44,8 @@ poetry run python3 src/index.py
 ## Backlog
 
 [https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing)
+
+
+## Codecov
+
+[https://app.codecov.io/gh/juhanikat/ohtuminiprojekti](https://app.codecov.io/gh/juhanikat/ohtuminiprojekti)
