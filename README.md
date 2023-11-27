@@ -1,5 +1,6 @@
 # ohtuminiprojekti
 [![CI](https://github.com/juhanikat/ohtuminiprojekti/actions/workflows/main.yml/badge.svg)](https://github.com/juhanikat/ohtuminiprojekti/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/juhanikat/ohtuminiprojekti/graph/badge.svg?token=2MRXDOBOKW)](https://codecov.io/gh/juhanikat/ohtuminiprojekti)
 
 Group: Fast Fishes
 
@@ -43,3 +44,8 @@ poetry run python3 src/index.py
 ## Backlog
 
 [https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing)
+
+
+## Codecov
+
+[https://app.codecov.io/gh/juhanikat/ohtuminiprojekti](https://app.codecov.io/gh/juhanikat/ohtuminiprojekti)
