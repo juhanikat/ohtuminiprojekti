@@ -1,27 +1,29 @@
 from resources.bibtex_data import REQUIRED_FIELDS
 
-def validate_input(type, value):
+def validate_input(field_type, value):
     """
     Validates the input based on the type and value set as parameters.
-    Use only if you have a type that exists in FIELD_VALIDATORS. Otherwise use the other functions available!
+    Use only if you have a type that exists in FIELD_VALIDATORS.
+    Otherwise use the other functions available!
 
     Returns:
-        True, if the value is valid or if type is not found within the FIELD_VALIDATORS
+        True, if the value is valid, or if type not found
         False, if the value is invalid
     """
 
-    if type in FIELD_VALIDATORS:
-        validators = FIELD_VALIDATORS[type]
-        if isinstance(validators, list):
-            for validator in validators:
-                if not validator(value):
-                    return False
-        else:
-            if not validators(value):
-                return False
-        return True
-    else:
+    if field_type not in FIELD_VALIDATORS:
         return True # Default behaviour when no type is found
+
+    validators = FIELD_VALIDATORS[field_type]
+
+    if isinstance(validators, list):
+        if any(not validator(value) for validator in validators):
+            return False
+    else:
+        if not validators(value):
+            return False
+
+    return True
 
 
 def validate_as_positive_integer(value):
@@ -36,9 +38,9 @@ def validate_as_positive_integer(value):
         integer = int(value)
         if integer > 0:
             return True
-        else:
-            print ("Value must be a positive number!")
-            return False
+
+        print ("Value must be a positive number!")
+        return False
     except ValueError:
         print ("Value was not a number!")
         return False
@@ -46,7 +48,7 @@ def validate_as_positive_integer(value):
 
 def validate_no_whitespace(value):
     """
-    Validates whether input is a string and does not contain whitespace before or after the string
+    Validates whether input is a string and does not contain whitespace
 
     Returns:
         True, if the value string and no whitespace present
@@ -55,8 +57,8 @@ def validate_no_whitespace(value):
     if isinstance(value, str) and not value.strip() == value:
         print ("Value contains whitespace!")
         return False
-    else:
-        return True
+
+    return True
 
 
 def validate_no_empty(value):
@@ -69,9 +71,9 @@ def validate_no_empty(value):
     """
     if isinstance(value, str) and len(value.strip()) > 0:
         return True
-    else:
-        print ("Value can not be empty!")
-        return False
+
+    print ("Value can not be empty!")
+    return False
 
 
 def validate_has_an_entry_type(value):
@@ -84,7 +86,7 @@ def validate_has_an_entry_type(value):
     """
     if value in REQUIRED_FIELDS:
         return True
-    
+
     print ("Invalid entry type!")
     return False
 

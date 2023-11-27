@@ -1,3 +1,7 @@
+"""
+Contains common information on bibtex entries
+"""
+
 REQUIRED_FIELDS = {
     "article": ["author", "title", "journal", "year"],
     "book": ["author", "title", "publisher", "year"],
