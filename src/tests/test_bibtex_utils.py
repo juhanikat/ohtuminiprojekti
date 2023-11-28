@@ -12,7 +12,7 @@ class TestReferenceFields(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['invalid', 'article'])
     def test_get_reference_invalid_then_valid(self, mock_input):
-        result = get_reference_type(print_message=False)
+        result = get_reference_type()
         self.assertEqual(result, 'article')
 
     @patch('builtins.input', side_effect=['exit'])
