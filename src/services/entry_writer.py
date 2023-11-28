@@ -49,7 +49,7 @@ def create_citation_key(manager):
     if not validate_input("citation",citation_key):
         return False
 
-    if manager is not None and manager.FindByName(citation_key):
+    if manager is not None and manager.find_by_name(citation_key):
         print("Citation already exists!")
         return False
 

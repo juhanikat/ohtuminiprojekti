@@ -25,7 +25,7 @@ def change_file_path(manager: ReferenceManager, new_file_path: str, new_file_nam
 
 
 def list_all_references(manager: ReferenceManager) -> str:
-    references = manager.GetAllReferences()
+    references = manager.get_all_references()
     result = ""
     for reference in references:
         result += reference.__str__() + "\n"
@@ -36,7 +36,7 @@ def new_entry(manager: ReferenceManager):
     entry = create_entry(manager)
     if entry:
         # creates new Reference object and adds it to the manager
-        manager.New(entry[0], entry[1])
+        manager.new(entry[0], entry[1])
     return entry
 
 

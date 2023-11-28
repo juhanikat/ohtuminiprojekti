@@ -12,7 +12,7 @@ class TestUi(unittest.TestCase):
     def test_listing_references(self):
         result = list_all_references(self.manager)
         self.assertEqual(len(result), 0)
-        self.manager.Add(Reference("testing"))
+        self.manager.add(Reference("testing"))
         result = list_all_references(self.manager)
         self.assertIn("testing", result)
 

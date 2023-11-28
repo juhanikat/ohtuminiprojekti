@@ -4,10 +4,10 @@ from .file_manager import get_path
 
 class ReferenceManager:
     def __init__(self):
-        self.references = list()
-        self.file_path = get_path()  # the file path where data is saved/loaded from
+        self.references = []
+        self.file_path = get_path()  # file path where data is saved/loaded from
 
-    def New(self, name: str, fields: dict = dict()):
+    def new(self, name: str, fields: dict = None):
         """
         Create a new reference and add it to this manager.
 
@@ -18,9 +18,11 @@ class ReferenceManager:
         Returns:
             None
         """
-        self.Add(Reference(name, fields))
+        if fields is None:
+            fields = {}
+        self.add(Reference(name, fields))
 
-    def Add(self, reference: Reference):
+    def add(self, reference: Reference):
         """
         Add an existing reference to this manager. Reference name must be new.
 
@@ -31,12 +33,12 @@ class ReferenceManager:
             None
         """
         name = reference.name
-        if self.FindByName(name) == None:
+        if self.find_by_name(name) is None:
             self.references.append(reference)
         else:
-            raise BaseException(f"Reference with name '{name}' already exists")
+            raise ValueError(f"Reference with name '{name}' already exists")
 
-    def Edit(self, name: str, field: str, value=None):
+    def edit(self, name: str, field: str, value=None):
         """
         Edit an attribute in a reference.
 
@@ -49,13 +51,13 @@ class ReferenceManager:
             bool: Was specified reference found.
 
         """
-        ref = self.FindByName(name)
-        if ref == None:
+        ref = self.find_by_name(name)
+        if ref is None:
             return False
         ref.fields[field] = value
         return True
 
-    def FindByName(self, name: str):
+    def find_by_name(self, name: str):
         """
         Get a reference by name.
 
@@ -71,7 +73,7 @@ class ReferenceManager:
                 return ref
         return None
 
-    def FindByAttribute(self, field: str, value):
+    def find_by_attribute(self, field: str, value):
         """
         Get all references with a specified value in a specified field.
 
@@ -84,14 +86,14 @@ class ReferenceManager:
         """
         matches = []
 
-        for ref in self.references:
-            if field in ref.fields.keys():
-                if ref.fields[field] == value:
-                    matches.append(ref)
+        for ref in filter(
+                lambda ref: field in ref.fields.keys(), self.references):
+            if ref.fields[field] == value:
+                matches.append(ref)
 
         return matches
 
-    def Remove(self, name: str):
+    def remove(self, name: str):
         """
         Removes the reference with this name.
 
@@ -101,13 +103,13 @@ class ReferenceManager:
         Returns:
             bool: Was specified reference found and removed.
         """
-        for i in range(len(self.references)):
-            if self.references[i].name == name:
+        for i, ref in enumerate(self.references):
+            if ref.name == name:
                 self.references.pop(i)
                 return True
         return False
 
-    def GetAllReferences(self):
+    def get_all_references(self):
         """
         Get a list with all references in this manager.
 
