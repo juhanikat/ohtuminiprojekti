@@ -6,6 +6,7 @@ class Reference:
         self.fields = fields
 
     def __str__(self):
-        return f"{self.name} ({', '.join(
-            [key.capitalize() + ': ' + self.fields[key] for key in self.fields]
-        )})"
+        key_value_pairs = [key.capitalize() + ': ' + self.fields[key]
+                           for key in self.fields]
+        fields_str = ', '.join(key_value_pairs)
+        return f"{self.name} ({fields_str})"
