@@ -8,10 +8,10 @@ def main():
     while True:
         try:
             user_input = ask_for_input(manager)
-            if user_input == -1:  # user wants to quit the program
-                break
         except UserInputError as error:
             print(error)
+        if user_input == -1:  # user wants to quit the program
+            break
 
 
 if __name__ == "__main__":

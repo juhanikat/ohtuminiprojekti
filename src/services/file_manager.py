@@ -4,19 +4,20 @@ from os import path, makedirs
 
 def read_json_file(file_path: str = None, file_name: str = None):
     '''
-    Read data from a JSON file. If the file doesn't exist, it creates a default JSON file.
+    Reads data from a JSON file, creating a default one if it doesn't exist.
 
-    The function attempts to read a JSON file located at `file_path`/`file_name`. If `file_name`
-    is not provided, it defaults to "data.json". Similarly, if `file_path` is not specified,
-    it defaults to "/repositories/". If the specified file does not exist, the function calls 
-    `write_json_file` to create a default file at the specified location.
+    This function reads a JSON file from file_path/file_name. It defaults to
+    "data.json" if file_name is not specified. Similarly, it defaults to
+    "/repositories/" for file_path. If the file is missing, it triggers
+    write_json_file to create a default file at the specified location.
 
     Parameters:
-    file_path (str, optional): The path to the directory containing the JSON file. Defaults to "/repositories/".
-    file_name (str, optional): The name of the JSON file. Defaults to "data.json".
+    file_path (str, optional): Directory path for the JSON file. Defaults to
+    "/repositories/".
+    file_name (str, optional): JSON file name. Defaults to "data.json".
 
     Returns:
-    dict: The data read from the JSON file.
+    dict: Data from the JSON file.
     '''
 
     full_path = get_path(file_path, file_name)
@@ -24,33 +25,39 @@ def read_json_file(file_path: str = None, file_name: str = None):
     if not path.exists(full_path):
         write_json_file(file_path=file_path, file_name=file_name)
 
-    with open(full_path, "r") as file:
+    with open(full_path, "r", encoding="utf-8") as file:
         data = json.load(file)
+
     return data
 
 
-def write_json_file(dictionary: dict = None, file_path: str = None, file_name: str = None):
+def write_json_file(
+        dictionary: dict = None,
+        file_path: str = None,
+        file_name: str = None):
     '''
-    Writes data to a JSON file. If the the dictionary is not provided, it creates a default JSON file.
+    Writes data to a JSON file. 
+    Creates a default file if no dictionary is given.
 
-    The function attempts to write a JSON file located at `file_path`/`file_name`. If `file_name`
-    is not provided, it defaults to "data.json". Similarly, if `file_path` is not specified,
-    it defaults to "/repositories/".
+    This function writes to a JSON file at file_path/file_name. Defaults to
+    "data.json" for file_name and "/repositories/" for file_path if not given.
+    If no dictionary is provided, an empty one is used.
 
     Parameters:
-    dictionary (dict, optional): The data to be written to the JSON file. Uses empty dictionary if one not provided.
-    file_path (str, optional): The path to the directory containing the JSON file. Defaults to "/repositories/".
-    file_name (str, optional): The name of the JSON file. Defaults to "data.json".
+    dictionary (dict, optional): Data for the JSON file. Uses empty dictionary 
+    if not provided.
+    file_path (str, optional): Directory path for the JSON file. Defaults to
+    "/repositories/".
+    file_name (str, optional): JSON file name. Defaults to "data.json".
 
     Returns:
     None
     '''
-
     full_path = get_path(file_path, file_name)
     if not dictionary:
         dictionary = {}
 
-    with open(full_path, "w") as file:
+    with open(full_path, "w", encoding="utf-8") as file:
         json.dump(dictionary, file)
 
 
