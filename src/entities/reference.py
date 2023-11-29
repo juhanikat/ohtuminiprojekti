@@ -6,7 +6,9 @@ class Reference:
         self.fields = fields
 
     def get_type(self):
-        return self.fields["entry_type"] if "entry_type" in self.fields else None
+        if "entry_type" in self.fields:
+            return self.fields["entry_type"]
+        return None
 
     def get_fields_as_tuples(self):
         return [(key, value)
