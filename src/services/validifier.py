@@ -1,5 +1,6 @@
 from resources.bibtex_data import REQUIRED_FIELDS
 
+
 def validate_input(field_type, value):
     """
     Validates the input based on the type and value set as parameters.
@@ -12,7 +13,7 @@ def validate_input(field_type, value):
     """
 
     if field_type not in FIELD_VALIDATORS:
-        return True # Default behaviour when no type is found
+        return True  # Default behaviour when no type is found
 
     validators = FIELD_VALIDATORS[field_type]
 
@@ -39,10 +40,10 @@ def validate_as_positive_integer(value):
         if integer > 0:
             return True
 
-        print ("Value must be a positive number!")
+        print("Value must be a positive number!")
         return False
     except ValueError:
-        print ("Value was not a number!")
+        print("Value was not a number!")
         return False
 
 
@@ -55,7 +56,7 @@ def validate_no_whitespace(value):
         False, if the value string and whitespace present
     """
     if isinstance(value, str) and not value.strip() == value:
-        print ("Value contains whitespace!")
+        print("Value contains whitespace!")
         return False
 
     return True
@@ -72,7 +73,7 @@ def validate_no_empty(value):
     if isinstance(value, str) and len(value.strip()) > 0:
         return True
 
-    print ("Value can not be empty!")
+    print("Value can not be empty!")
     return False
 
 
@@ -87,7 +88,7 @@ def validate_has_an_entry_type(value):
     if value in REQUIRED_FIELDS:
         return True
 
-    print ("Invalid entry type!")
+    print("Invalid entry type!")
     return False
 
 

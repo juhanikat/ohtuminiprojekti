@@ -1,7 +1,8 @@
 from resources.bibtex_data import REQUIRED_FIELDS
 from services.validifier import validate_input
 
-def create_entry(manager = None):
+
+def create_entry(manager=None):
     """
     Creates an entry in a string, dictionary format.
 
@@ -33,6 +34,7 @@ def create_entry(manager = None):
 
     return citation_key, fields
 
+
 def create_citation_key(manager):
     """
     Creates a citation key and returns it based on input if valid.
@@ -46,7 +48,7 @@ def create_citation_key(manager):
     """
 
     citation_key = input("Enter the citation key:").strip()
-    if not validate_input("citation",citation_key):
+    if not validate_input("citation", citation_key):
         return False
 
     if manager is not None and manager.find_by_name(citation_key):
@@ -54,6 +56,7 @@ def create_citation_key(manager):
         return False
 
     return citation_key
+
 
 def choose_entry_type(fields):
     """
@@ -73,6 +76,7 @@ def choose_entry_type(fields):
     fields["entry_type"] = entry_type
     return fields
 
+
 def fill_required_fields(fields):
     """
     Prompts the required fields based on entry_type.
@@ -87,6 +91,7 @@ def fill_required_fields(fields):
             return False
         fields[field] = value
     return fields
+
 
 def enter_optional_fields(fields):
     """

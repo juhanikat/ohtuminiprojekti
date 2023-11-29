@@ -2,6 +2,7 @@ import unittest
 from entities.reference import Reference
 from services.reference_manager import ReferenceManager
 
+
 class TestReferenceManager(unittest.TestCase):
     def setUp(self):
         self.rm = ReferenceManager()
@@ -28,7 +29,8 @@ class TestReferenceManager(unittest.TestCase):
         self.rm.new("TestReference", {"field1": "value1"})
         result = self.rm.edit("TestReference", "field1", "new_value")
         self.assertTrue(result)
-        self.assertEqual(self.rm.find_by_name("TestReference").fields["field1"], "new_value")
+        self.assertEqual(self.rm.find_by_name(
+            "TestReference").fields["field1"], "new_value")
 
     def test_edit_nonexistent_reference(self):
         result = self.rm.edit("NonexistentReference", "field1", "new_value")
@@ -73,6 +75,7 @@ class TestReferenceManager(unittest.TestCase):
         self.assertEqual(len(result), 2)
         self.assertIsInstance(result[0], Reference)
         self.assertIsInstance(result[1], Reference)
+
 
 if __name__ == '__main__':
     unittest.main()
