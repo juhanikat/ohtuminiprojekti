@@ -99,14 +99,14 @@ def enter_optional_fields(fields):
     Populates the information into dict[fields] if inputs are valid.
     """
     while True:
-        field = input("Enter optional field name \
-                      (leave empty to finish):").strip()
+        field = input("Enter optional field name " +
+                      "(leave empty to finish):").strip()
         if not field:
             break
 
         if field in fields or field == "citation":
-            print(f"The field '{field}' has already been entered. \
-                  Enter a different field.")
+            print(f"The field '{field}' has already been entered. " +
+                  "Enter a different field.")
             continue
 
         value = input(f"Enter value for {field}:").strip()
