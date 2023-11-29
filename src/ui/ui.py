@@ -62,3 +62,15 @@ def ask_for_input(manager: ReferenceManager):
     else:
         print("Invalid input")
     print()
+
+
+def ui_loop(manager: ReferenceManager):
+    while True:
+        result = None
+        try:
+            result = ask_for_input(manager)
+        except UserInputError as error:
+            print(error)
+            continue
+        if result == -1:
+            break
