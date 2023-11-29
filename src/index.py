@@ -1,4 +1,4 @@
-from ui.ui import ask_for_input, UserInputError
+from ui.ui import ui_loop, UserInputError
 from services.file_manager import save_data, load_data
 
 
@@ -7,7 +7,7 @@ def main():
 
     while True:
         try:
-            user_input = ask_for_input(manager)
+            user_input = ui_loop(manager)
         except UserInputError as error:
             print(error)
         if user_input == -1:  # user wants to quit the program

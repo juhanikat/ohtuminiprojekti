@@ -73,4 +73,4 @@ def ui_loop(manager: ReferenceManager):
             print(error)
             continue
         if result == -1:
-            break
+            return -1
