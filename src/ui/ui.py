@@ -1,6 +1,6 @@
 from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
-from services.file_manager import get_path
+from services.path import get_full_path
 
 
 class UserInputError(Exception):
@@ -21,7 +21,7 @@ def change_file_path(manager: ReferenceManager, new_file_path: str, new_file_nam
 
 
     '''
-    manager.file_path = get_path(new_file_path, new_file_name)
+    manager.file_path = get_full_path(new_file_path, new_file_name)
 
 
 def list_all_references(manager: ReferenceManager) -> str:

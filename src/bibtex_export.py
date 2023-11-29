@@ -2,7 +2,7 @@ import os
 from pybtex.database import BibliographyData, Entry
 # Docs: https://pybtex.org/
 from services.reference_manager import ReferenceManager
-from services.file_manager import get_path
+from services.path import get_full_path
 from entities.reference import Reference
 
 
@@ -38,15 +38,15 @@ def export_to_bibtex(reference_manager: ReferenceManager,
 
     # create a new file_name to avoid overwriting
     if not overwrite and os.path.exists(
-            get_path(file_path, file_name) + ".bib"):
+            get_full_path(file_path, file_name) + ".bib"):
         i = 1
         while os.path.exists(
-                f"{get_path(file_path, file_name)} ({i}).bib"):
+                f"{get_full_path(file_path, file_name)} ({i}).bib"):
             i += 1
         file_name += f" ({i})"
 
     file_name += ".bib"
-    full_path = get_path(file_path, file_name)
+    full_path = get_full_path(file_path, file_name)
 
     with open(full_path, "w", encoding="utf-8") as file:
         file.write(data)

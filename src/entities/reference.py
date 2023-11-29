@@ -10,6 +10,9 @@ class Reference:
             return self.fields["entry_type"]
         return None
 
+    def get_fields_as_dict(self):
+        return self.fields
+
     def get_fields_as_tuples(self):
         return [(key, value)
                 for key, value in self.fields.items() if key != "entry_type"]
@@ -19,3 +22,7 @@ class Reference:
                            for key in self.fields]
         fields_str = ', '.join(key_value_pairs)
         return f"{self.name} ({fields_str})"
+
+    def __repr__(self):
+        return (f"Reference(name={self.name}, "
+                f"fields={self.fields})")

@@ -1,11 +1,12 @@
 from entities.reference import Reference
-from .file_manager import get_path
+from services.path import get_full_path
 
 
 class ReferenceManager:
     def __init__(self):
         self.references = []
-        self.file_path = get_path()  # file path where data is saved/loaded from
+        # file path where data is saved/loaded from
+        self.file_path = get_full_path()
 
     def new(self, name: str, fields: dict = None):
         """
