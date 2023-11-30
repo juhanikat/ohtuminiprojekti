@@ -1,7 +1,9 @@
+from logging import Manager
 from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
 from services.path import get_full_path
 from default_io import DefaultIO
+from bibtex_export import export_to_bibtex
 
 
 class UserInputError(Exception):
@@ -47,6 +49,7 @@ class UI:
         choice = self.io.read(
             "Input a to add a new reference\n"
             "Input l to list all references\n"
+            "Input e to export references as a .bib file\n"
             "Input q to exit\n").strip().lower()
         if choice == 'a':
             self.new_entry()
@@ -59,6 +62,8 @@ class UI:
             new_file_name = self.io.read(
                 "Type new file name here (leave empty for default name): ").strip()
             self.change_file_path(new_file_path, new_file_name)
+        elif choice == 'e':
+            export_to_bibtex(self.manager)
         elif choice == 'q':
             return -1
         else:

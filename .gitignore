@@ -11,3 +11,4 @@ data.json
 log.html
 output.xml
 report.html
+exports/*
