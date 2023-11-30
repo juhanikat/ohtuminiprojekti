@@ -59,7 +59,7 @@ class UI:
                 raise UserInputError("File path must not be empty!")
             new_file_name = self.io.read(
                 "Type new file name here (leave empty for default name): ").strip()
-            self.change_file_path(self.manager, new_file_path, new_file_name)
+            self.change_file_path(new_file_path, new_file_name)
         elif choice == 'q':
             return -1
         else:
