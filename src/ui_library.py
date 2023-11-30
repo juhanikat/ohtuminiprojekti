@@ -3,7 +3,7 @@ from stub_io import StubIO
 from services.reference_manager import ReferenceManager
 
 
-class UILibrary:
+class ui_library:
     def __init__(self) -> None:
         self.manager = ReferenceManager()
         self.io = StubIO()

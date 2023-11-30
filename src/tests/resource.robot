@@ -1,2 +1,2 @@
 *** Settings ***
-Library  ../UILibrary.py
+Library  ../ui_library.py
