@@ -26,7 +26,7 @@ def save_data(references):
 def load_data(full_path=None):
     '''
     Loads data from a JSON file.
-print
+
     This function loads data from a JSON file. It uses the read_json_file
     function to do so.
 
