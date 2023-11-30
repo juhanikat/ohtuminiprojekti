@@ -52,13 +52,13 @@ class UI:
             self.new_entry()
         elif choice == 'l':
             self.io.write(self.list_all_references())
-        # elif choice == 'f':
-        #     new_file_path = self.io.read("Type new file path here: ").strip()
-        #     if not new_file_path:
-        #         raise UserInputError("File path must not be empty!")
-        #     new_file_name = self.io.read(
-        #         "Type new file name here (leave empty for default name): ").strip()
-        #     self.change_file_path(new_file_path, new_file_name)
+        elif choice == 'f':
+            new_file_path = self.io.read("Type new file path here: ").strip()
+            if not new_file_path:
+                raise UserInputError("File path must not be empty!")
+            new_file_name = self.io.read(
+                "Type new file name here (leave empty for default name): ").strip()
+            self.change_file_path(new_file_path, new_file_name)
         elif choice == 'q':
             return -1
         else:
