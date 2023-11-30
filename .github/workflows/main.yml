@@ -21,6 +21,8 @@ jobs:
         run: poetry install
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
+      - name: Run robot tests
+        run: robot src/tests
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
