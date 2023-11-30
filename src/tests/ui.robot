@@ -2,7 +2,6 @@
 Resource  resource.robot
 
 *** Test Cases ***
-
 Input Invalid Command
     Ask For Input
     Input  abc
