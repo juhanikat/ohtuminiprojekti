@@ -44,3 +44,7 @@ class UILibrary:
 
     def ask_for_input(self):
         self.ui.ask_for_input()
+
+    def create_test_reference(self):
+        self.manager.new("test", {"entry_type": "article", "author": "me",
+                         "title": "hello", "journal": "what", "year": "1991"})
