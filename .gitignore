@@ -8,3 +8,6 @@ htmlcov/
 .vscode/
 poetry.lock
 data.json
+log.html
+output.xml
+report.html
