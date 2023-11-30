@@ -50,7 +50,7 @@ def export_to_bibtex(reference_manager: ReferenceManager,
 
     with open(full_path, "w", encoding="utf-8") as file:
         file.write(data)
-    
+
     return full_path
 
 

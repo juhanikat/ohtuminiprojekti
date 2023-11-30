@@ -2,7 +2,6 @@ import json
 from os import path
 from services.reference_manager import ReferenceManager
 from services.path import get_full_path
-from entities.reference import Reference
 
 
 def save_data(references):
