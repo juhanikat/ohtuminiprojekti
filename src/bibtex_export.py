@@ -26,7 +26,7 @@ def export_to_bibtex(reference_manager: ReferenceManager,
         Default is False.
 
     Returns:
-        None
+        str: Path to created file
     """
     if file_name is None:
         file_name = "bibtex_export"
@@ -34,7 +34,7 @@ def export_to_bibtex(reference_manager: ReferenceManager,
     if file_path is None:
         file_path = "./exports/"
 
-    data = create_bib_data(reference_manager).to_string("bibtex")
+    data = create_bibtex_string(reference_manager)
 
     # create a new file_name to avoid overwriting
     if not overwrite and os.path.exists(
@@ -50,6 +50,21 @@ def export_to_bibtex(reference_manager: ReferenceManager,
 
     with open(full_path, "w", encoding="utf-8") as file:
         file.write(data)
+    
+    return full_path
+
+
+def create_bibtex_string(reference_manager: ReferenceManager):
+    """
+    Create a BibTex formatted string from a ReferenceManager.
+
+    Parameters:
+        reference_manager (RerefenceManager): The reference manager to convert.
+    
+    Returns:
+        str: References as a BibTex formatted string.
+    """
+    return create_bib_data(reference_manager).to_string("bibtex")
 
 
 def create_bib_data(rm: ReferenceManager):
