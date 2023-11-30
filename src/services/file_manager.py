@@ -70,9 +70,8 @@ def convert_dict_to_reference_manager(data):
     '''
 
     references = ReferenceManager()
-    for key, value in data.items():
-        reference = Reference(name=key, fields=value["fields"])
-        references.add(reference)
+    for name, fields in data.items():
+        references.new(name, fields)
     return references
 
 
@@ -98,10 +97,7 @@ def convert_reference_manager_to_dict(references):
 
     data = {}
     for reference in references.get_all_references():
-        data[reference.name] = {
-            "entry_type": reference.get_type(),
-            "fields": reference.get_fields_as_dict()
-        }
+        data[reference.name] = reference.get_fields_as_dict()
     return data
 
 

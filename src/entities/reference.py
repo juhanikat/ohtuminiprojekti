@@ -22,7 +22,3 @@ class Reference:
                            for key in self.fields]
         fields_str = ', '.join(key_value_pairs)
         return f"{self.name} ({fields_str})"
-
-    def __repr__(self):
-        return (f"Reference(name={self.name}, "
-                f"fields={self.fields})")
