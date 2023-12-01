@@ -20,10 +20,6 @@ def create_entry(manager=None):
 
     fields = {}
 
-    citation_key = create_citation_key(manager)
-    if citation_key is False:
-        return False
-
     if choose_entry_type(fields) is False:
         return False
 
@@ -31,6 +27,10 @@ def create_entry(manager=None):
         return False
 
     enter_optional_fields(fields)
+
+    citation_key = create_citation_key(manager)
+    if citation_key is False:
+        return False
 
     return citation_key, fields
 
@@ -47,15 +47,18 @@ def create_citation_key(manager):
         False if the inputs are invalid.
     """
 
-    citation_key = input("Enter the citation key:").strip()
-    if not validate_input("citation", citation_key):
-        return False
+    while True:
+        citation_key = input("Enter the citation key "+
+                             "(Leave empty to abort)").strip()
 
-    if manager is not None and manager.find_by_name(citation_key):
-        print("Citation already exists!")
-        return False
+        if not citation_key:
+            return False
 
-    return citation_key
+        if manager is not None and manager.find_by_name(citation_key):
+            print("Citation already exists!")
+            continue
+
+        return citation_key
 
 
 def choose_entry_type(fields):
@@ -66,16 +69,21 @@ def choose_entry_type(fields):
     Returns:
         False, if inputs invalid
     """
+
     entry_types = ", ".join(REQUIRED_FIELDS.keys())
     print(f"Possible entry types: {entry_types}")
 
-    entry_type = input("Choose the entry type:").strip()
-    if not validate_input("entry_type", entry_type):
-        return False
+    while True:
+        entry_type = input("Choose the entry type " +
+                           "(Enter empty to abort): ").strip()
+        if not entry_type:
+            return False
 
-    fields["entry_type"] = entry_type
+        if validate_input("entry_type", entry_type):
+            fields["entry_type"] = entry_type
+            break
+
     return fields
-
 
 def fill_required_fields(fields):
     """
@@ -83,15 +91,42 @@ def fill_required_fields(fields):
     Fills the information inside the dict[fields] if inputs are valid
 
     Returns:
-        False, if inputs invalid
+        False, if user sends empty input
+    """
+
+    while True:
+        result = _enter_required_fields(fields)
+        if result == "Abort":
+            return False
+        if result:
+            break
+
+    return fields
+
+def _enter_required_fields (fields):
+    """
+    Prompts the required fields based on entry_type.
+    Fills the information inside the dict[fields] if inputs are valid
+
+    Returns:
+        False, if validation fails
+        True, if all required fields are valid
+        Abort, if user enters an empty field.
     """
     for field in REQUIRED_FIELDS[fields["entry_type"]]:
-        value = input(f"Enter value for {field}: ").strip()
+        if field in fields:
+            continue
+
+        value = input(f"Enter value for {field} " +
+                      "(Enter empty to abort): ").strip()
+
+        if not value:
+            return "Abort"
+
         if not validate_input(field, value):
             return False
         fields[field] = value
-    return fields
-
+    return True
 
 def enter_optional_fields(fields):
     """
@@ -100,7 +135,7 @@ def enter_optional_fields(fields):
     """
     while True:
         field = input("Enter optional field name " +
-                      "(leave empty to finish):").strip()
+                      "(Leave empty to finish):").strip()
         if not field:
             break
 

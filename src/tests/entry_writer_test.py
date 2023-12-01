@@ -8,10 +8,9 @@ entry_writer_path = "services.entry_writer"
 class TestCreateEntry(unittest.TestCase):
     @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry(self, mock_input):
-        mock_input.side_effect = ['validref', 'book',
-                                  'andy', 'titus', 'otava', '2023', '']
+        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023','','unittestref']
 
-        expected_citation = 'validref'
+        expected_citation = 'unittestref'
         expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
@@ -27,10 +26,9 @@ class TestCreateEntry(unittest.TestCase):
 
     @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry_with_optional_fields(self, mock_input):
-        mock_input.side_effect = ['validref', 'book', 'andy',
-                                  'titus', 'otava', '2023', 'volume', 'first edition', '']
+        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023', 'volume', 'first edition', '', 'unittestref']
 
-        expected_citation = 'validref'
+        expected_citation = 'unittestref'
         expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
@@ -47,10 +45,9 @@ class TestCreateEntry(unittest.TestCase):
 
     @patch(f'{entry_writer_path}.input', create=True)
     def test_overwriting_written_fields_should_be_blocked(self, mock_input):
-        mock_input.side_effect = ['validref', 'book',
-                                  'andy', 'titus', 'otava', '2023', 'author', '']
+        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023', 'author', '', 'unittestref']
 
-        expected_citation = 'validref'
+        expected_citation = 'unittestref'
         expected_dict = {
             'entry_type': 'book',
             'author': 'andy',
@@ -65,14 +62,24 @@ class TestCreateEntry(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     @patch(f'{entry_writer_path}.input', create=True)
-    def test_complete_entry_with_empty_required_field(self, mock_input):
-        mock_input.side_effect = ['validref', 'book', '']
+    def test_can_resume_after_bad_required_field_input(self, mock_input):
+        mock_input.side_effect = ['proceedings', 'titus', 'notayear', '2023', '', 'unittestref']
+
+        expected_citation = 'unittestref'
+        expected_dict = {
+            'entry_type': 'proceedings',
+            'title': 'titus',
+            'year': '2023'
+        }
+        expected_result = (expected_citation, expected_dict)
 
         result = create_entry()
-        self.assertFalse(result)
+        print(result)
+        self.assertEqual(result, expected_result)
+
 
     @patch(f'{entry_writer_path}.input', create=True)
-    def test_invalid_citation(self, mock_input):
+    def test_can_abort_at_entry(self, mock_input):
         mock_input.side_effect = ['']
 
         result = create_entry()
@@ -80,9 +87,39 @@ class TestCreateEntry(unittest.TestCase):
         self.assertFalse(result)
 
     @patch(f'{entry_writer_path}.input', create=True)
-    def test_invalid_entry_type(self, mock_input):
-        mock_input.side_effect = ['validref', 'Idontexist']
+    def test_can_abort_at_required_fields(self, mock_input):
+        mock_input.side_effect = ['book','']
 
         result = create_entry()
         print(result)
         self.assertFalse(result)
+
+    @patch(f'{entry_writer_path}.input', create=True)
+    def test_can_abort_at_citation_key(self, mock_input):
+        mock_input.side_effect = ['misc','','']
+
+        result = create_entry()
+        print(result)
+        self.assertFalse(result)
+
+    @patch(f'{entry_writer_path}.input', create=True)
+    def test_invalid_entry_type(self, mock_input):
+        mock_input.side_effect = ['Idontexist', '']
+
+        result = create_entry()
+        print(result)
+        self.assertFalse(result)
+
+    @patch(f'{entry_writer_path}.input', create=True)
+    def test_invalid_optional_input(self, mock_input):
+        mock_input.side_effect = ['misc', 'year','badyear','','unittestref']
+
+        expected_citation = 'unittestref'
+        expected_dict = {
+            'entry_type': 'misc'
+        }
+        expected_result = (expected_citation, expected_dict)
+
+        result = create_entry()
+        print(result)
+        self.assertEqual(result, expected_result)
