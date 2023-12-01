@@ -1,0 +1,13 @@
+{
+    "cite": {
+        "entry_type": "book",
+        "author": "Timo",
+        "title": "Kirja",
+        "publisher": "HY",
+        "year": "2023"
+    },
+    "Testi": {
+        "entry_type": "misc",
+        "url": "moi.fi"
+    }
+}
