@@ -49,3 +49,8 @@ poetry run python3 src/index.py
 ## Codecov
 
 [https://app.codecov.io/gh/juhanikat/ohtuminiprojekti](https://app.codecov.io/gh/juhanikat/ohtuminiprojekti)
+
+
+## Retrospektiivi
+
+Results of retrospectives can be found in the [retro.md](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/retro.md)
