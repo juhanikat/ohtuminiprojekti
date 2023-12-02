@@ -3,18 +3,18 @@ Contains common information on bibtex entries
 """
 
 REQUIRED_FIELDS = {
-    "article": ["author", "title", "journal", "year"],
-    "book": ["author", "title", "publisher", "year"],
+    "article": ["title", "year", "author", "journal"],
+    "book": ["title", "year", "author", "publisher"],
     "booklet": ["title"],
-    "conference": ["author", "title", "booktitle", "year"],
-    "inbook": ["author", "title", "chapter", "pages", "publisher", "year"],
-    "incollection": ["author", "title", "booktitle", "publisher", "year"],
-    "inproceedings": ["author", "title", "booktitle", "year"],
+    "conference": ["title", "year", "author", "booktitle"],
+    "inbook": ["title", "year", "author", "chapter", "pages", "publisher"],
+    "incollection": ["title", "year", "author", "booktitle", "publisher"],
+    "inproceedings": ["title", "year", "author", "booktitle"],
     "manual": ["title"],
-    "mastersthesis": ["author", "title", "school", "year"],
+    "mastersthesis": ["title", "year", "author", "school"],
     "misc": [],
-    "phdthesis": ["author", "title", "school", "year"],
+    "phdthesis": ["title", "year", "author", "school"],
     "proceedings": ["title", "year"],
-    "techreport": ["author", "title", "institution", "year"],
-    "unpublished": ["author", "title", "note"]
+    "techreport": ["title", "year", "author", "institution"],
+    "unpublished": ["title", "author", "note"]
 }

@@ -8,7 +8,7 @@ entry_writer_path = "services.entry_writer"
 class TestCreateEntry(unittest.TestCase):
     @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry(self, mock_input):
-        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023','','unittestref']
+        mock_input.side_effect = ['book', 'titus', '2023', 'andy', 'otava','','unittestref']
 
         expected_citation = 'unittestref'
         expected_dict = {
@@ -26,7 +26,7 @@ class TestCreateEntry(unittest.TestCase):
 
     @patch(f'{entry_writer_path}.input', create=True)
     def test_complete_entry_with_optional_fields(self, mock_input):
-        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023', 'volume', 'first edition', '', 'unittestref']
+        mock_input.side_effect = ['book', 'titus', '2023', 'andy', 'otava', 'volume', 'first edition', '', 'unittestref']
 
         expected_citation = 'unittestref'
         expected_dict = {
@@ -45,7 +45,7 @@ class TestCreateEntry(unittest.TestCase):
 
     @patch(f'{entry_writer_path}.input', create=True)
     def test_overwriting_written_fields_should_be_blocked(self, mock_input):
-        mock_input.side_effect = ['book', 'andy', 'titus', 'otava', '2023', 'author', '', 'unittestref']
+        mock_input.side_effect = ['book', 'titus', '2023', 'andy', 'otava', 'author', '', 'unittestref']
 
         expected_citation = 'unittestref'
         expected_dict = {
@@ -113,6 +113,36 @@ class TestCreateEntry(unittest.TestCase):
     @patch(f'{entry_writer_path}.input', create=True)
     def test_invalid_optional_input(self, mock_input):
         mock_input.side_effect = ['misc', 'year','badyear','','unittestref']
+
+        expected_citation = 'unittestref'
+        expected_dict = {
+            'entry_type': 'misc'
+        }
+        expected_result = (expected_citation, expected_dict)
+
+        result = create_entry()
+        print(result)
+        self.assertEqual(result, expected_result)
+
+    @patch(f'{entry_writer_path}.input', create=True)
+    def test_can_receive_and_use_suggested_citation (self, mock_input):
+        mock_input.side_effect = ['proceedings', 'titus', 'notayear', '2023', '', 'x']
+
+        expected_citation = 'proceedings-titus-2023'
+        expected_dict = {
+            'entry_type': 'proceedings',
+            'title': 'titus',
+            'year': '2023'
+        }
+        expected_result = (expected_citation, expected_dict)
+
+        result = create_entry()
+        print(result)
+        self.assertEqual(result, expected_result)
+
+    @patch(f'{entry_writer_path}.input', create=True)
+    def test_invalid_citation_key(self, mock_input):
+        mock_input.side_effect = ['misc', 'year','badyear','','I am a space marine', 'unittestref']
 
         expected_citation = 'unittestref'
         expected_dict = {

@@ -31,3 +31,10 @@ class TestValidifier(unittest.TestCase):
 
     def test_validate_has_no_entry_type_with_invalid_type(self):
         self.assertFalse(validifier.validate_has_an_entry_type("Idontexist"))
+
+    def test_validate_has_no_spaces_with_spaces(self):
+        self.assertFalse(validifier.validate_no_spaces("I have spaces"))
+
+    def test_validate_has_no_spaces_without_spaces(self):
+        self.assertTrue(validifier.validate_no_spaces("Idonthavespaces"))
+        self.assertTrue(validifier.validate_no_spaces("I_only_have_underscores"))

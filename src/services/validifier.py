@@ -76,6 +76,20 @@ def validate_no_empty(value):
     print("Value can not be empty!")
     return False
 
+def validate_no_spaces(value):
+    """
+    Validates whether input is a string and contains any spaces
+
+    Returns:
+        True, if the value does not contain spaces anywhere
+        False, if the value contains spaces
+    """
+    if isinstance(value, str) and value.count(' ') == 0:
+        return True
+
+    print("Value can not contain spaces!")
+    return False
+
 
 def validate_has_an_entry_type(value):
     """
@@ -94,7 +108,7 @@ def validate_has_an_entry_type(value):
 
 FIELD_VALIDATORS = {
     "year": validate_as_positive_integer,
-    "citation": [validate_no_whitespace, validate_no_empty],
+    "citation": [validate_no_whitespace, validate_no_empty, validate_no_spaces],
     "entry_type": validate_has_an_entry_type,
     "author": [validate_no_whitespace, validate_no_empty],
     "title": [validate_no_whitespace, validate_no_empty],

@@ -1,5 +1,6 @@
-from resources.bibtex_data import REQUIRED_FIELDS
+from services.cite_generator import generate_citation
 from services.validifier import validate_input
+from resources.bibtex_data import REQUIRED_FIELDS
 
 
 def create_entry(manager=None):
@@ -28,14 +29,14 @@ def create_entry(manager=None):
 
     enter_optional_fields(fields)
 
-    citation_key = create_citation_key(manager)
+    citation_key = create_citation_key(fields, manager)
     if citation_key is False:
         return False
 
     return citation_key, fields
 
 
-def create_citation_key(manager):
+def create_citation_key(fields, manager):
     """
     Creates a citation key and returns it based on input if valid.
 
@@ -48,18 +49,28 @@ def create_citation_key(manager):
     """
 
     while True:
+        suggested_citation = generate_citation(fields, manager)
+        if suggested_citation is not False:
+            print ("Recommended name for citation: "+ suggested_citation +
+                " input 'x' to use it automatically.")
+
         citation_key = input("Enter the citation key "+
-                             "(Leave empty to abort)").strip()
+                             "(Enter empty to abort): ").strip()
+
+        if suggested_citation is not False and citation_key == 'x':
+            citation_key = suggested_citation
 
         if not citation_key:
             return False
+
+        if not validate_input("citation", citation_key):
+            continue
 
         if manager is not None and manager.find_by_name(citation_key):
             print("Citation already exists!")
             continue
 
         return citation_key
-
 
 def choose_entry_type(fields):
     """
