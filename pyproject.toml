@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 pybtex = "^0.24.0"
 setuptools = "^69.0.2"
+terminaltables = "^3.1.10"
 
 
 [tool.poetry.group.dev.dependencies]

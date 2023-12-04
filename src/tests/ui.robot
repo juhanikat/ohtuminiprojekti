@@ -16,4 +16,4 @@ Input Listing Command When References
     Create Test Reference
     Input  l
     Ask For Input
-    Output Should Contain  test (Entry_type: article, Author: me, Title: hello, Journal: what, Year: 1991)\n
+    Output Should Contain  | test | article | hello | 1991 |

@@ -13,14 +13,19 @@ class ui_library:
         self.io.add_input(value)
 
     def output_should_contain(self, value):
+        """
+        raises AssertionError if value doesn't match any part of any string in outputs.
+        """
         outputs = self.io.outputs
         inputs = self.io.inputs
 
-        if not value in outputs:
-            raise AssertionError(
-                f"Output \"{value}\" is not in {str(outputs)}, " +
-                f"Inputs: {str(inputs)}"
-            )
+        for output in outputs:
+            if value in output:
+                return True
+        raise AssertionError(
+            f"Output \"{value}\" is not in {str(outputs)}, " +
+            f"Inputs: {str(inputs)}"
+        )
 
     def output_should_not_contain(self, value):
         outputs = self.io.outputs
