@@ -16,3 +16,7 @@ Test Program Output with bad text
 Test Program Output on Add Reference
     ${output}=    Run    python ./src/interact_with_index.py a
     Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+
+Test Program Output on Add Reference and bad entry type
+    ${output}=    Run    python ./src/interact_with_index.py a asd
+    Should Contain    ${output}    Invalid entry type!
