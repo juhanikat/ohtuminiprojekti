@@ -1,6 +1,6 @@
 from logging import Manager
 from services.reference_manager import ReferenceManager
-from services.entry_writer import create_entry
+from services.entry_writer import EntryWriter
 from services.path import get_full_path
 from default_io import DefaultIO
 from bibtex_export import export_to_bibtex
@@ -16,6 +16,7 @@ class UI:
     def __init__(self, manager: ReferenceManager, io=DefaultIO()):
         self.manager = manager
         self.io = io
+        self.entry_writer = EntryWriter(self.manager)
 
     def change_file_path(self, new_file_path: str, new_file_name: str = None):
         '''
@@ -84,7 +85,7 @@ class UI:
         return result
 
     def new_entry(self):
-        entry = create_entry(self.manager)
+        entry = self.entry_writer.create_entry()
         if entry:
             # creates new Reference object and adds it to the manager
             self.manager.new(entry[0], entry[1])
