@@ -51,10 +51,10 @@ def create_citation_key(fields, manager):
     while True:
         suggested_citation = generate_citation(fields, manager)
         if suggested_citation is not False:
-            print ("Recommended name for citation: "+ suggested_citation +
-                " input 'x' to use it automatically.")
+            print("Recommended name for citation: " + suggested_citation +
+                  " input 'x' to use it automatically.")
 
-        citation_key = input("Enter the citation key "+
+        citation_key = input("Enter the citation key " +
                              "(Enter empty to abort): ").strip()
 
         if suggested_citation is not False and citation_key == 'x':
@@ -71,6 +71,7 @@ def create_citation_key(fields, manager):
             continue
 
         return citation_key
+
 
 def choose_entry_type(fields):
     """
@@ -96,6 +97,7 @@ def choose_entry_type(fields):
 
     return fields
 
+
 def fill_required_fields(fields):
     """
     Prompts the required fields based on entry_type.
@@ -114,7 +116,8 @@ def fill_required_fields(fields):
 
     return fields
 
-def _enter_required_fields (fields):
+
+def _enter_required_fields(fields):
     """
     Prompts the required fields based on entry_type.
     Fills the information inside the dict[fields] if inputs are valid
@@ -138,6 +141,7 @@ def _enter_required_fields (fields):
             return False
         fields[field] = value
     return True
+
 
 def enter_optional_fields(fields):
     """
