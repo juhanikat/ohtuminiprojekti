@@ -39,5 +39,5 @@ Test Create New Article With Non-Numeric Year And Then Numeric
     Should Contain    ${output}    Enter value for author (Enter empty to abort):
     Should Contain    ${output}    Enter value for journal (Enter empty to abort):
     Should Contain    ${output}    Enter optional field name (Leave empty to finish):
-    Should Contain    ${output}    Enter the citation key (Enter empty to abort):
+    Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
 

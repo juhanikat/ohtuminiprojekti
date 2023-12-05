@@ -33,6 +33,7 @@ def create_entry(manager=None):
     if citation_key is False:
         return False
 
+    print("Reference created!")
     return citation_key, fields
 
 
@@ -50,23 +51,27 @@ def create_citation_key(fields, manager):
 
     while True:
         suggested_citation = generate_citation(fields, manager)
-        if suggested_citation is not False:
-            print("Recommended name for citation: " + suggested_citation +
-                  " input 'x' to use it automatically.")
+        if suggested_citation:
+            print(f"Recommended name for citation: {suggested_citation}")
+            citation_key = input(
+                "Enter the citation key, or press "
+                "Enter to use the suggestion: ").strip()
+        else:
+            citation_key = input(
+                "Enter the citation key (Enter empty to abort): ").strip()
 
-        citation_key = input("Enter the citation key " +
-                             "(Enter empty to abort): ").strip()
-
-        if suggested_citation is not False and citation_key == 'x':
+        # user wants to use the suggestion
+        if suggested_citation and not citation_key:
             citation_key = suggested_citation
 
+        # citation keys have run out and user aborts
         if not citation_key:
             return False
 
         if not validate_input("citation", citation_key):
             continue
 
-        if manager is not None and manager.find_by_name(citation_key):
+        if manager and manager.find_by_name(citation_key):
             print("Citation already exists!")
             continue
 
