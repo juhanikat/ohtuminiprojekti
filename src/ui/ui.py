@@ -89,11 +89,12 @@ class UI:
             # creates new Reference object and adds it to the manager
             self.manager.new(entry[0], entry[1])
         return entry
-
+    
     def ask_for_input(self):
         choice = self.io.read(
             "Input a to add a new reference\n"
             "Input l to list all references\n"
+            "Input r to remove a reference\n"
             "Input e to export references as a .bib file\n"
             "Input q to exit\n").strip().lower()
         if choice == 'a':
@@ -110,6 +111,14 @@ class UI:
             self.change_file_path(new_file_path, new_file_name)
         elif choice == 'e':
             export_to_bibtex(self.manager)
+        elif choice == 'r':
+            remove_key = self.io.read(
+                "Type the name of the reference to remove: ").strip()
+            success = self.manager.remove(remove_key)
+            if success:
+                self.io.write(f"Removed reference with name: {remove_key}")
+            else:
+                self.io.write(f"Reference with name '{remove_key}' not found")
         elif choice == 'q':
             return -1
         else:
