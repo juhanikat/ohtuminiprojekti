@@ -20,3 +20,24 @@ Test Program Output on Add Reference
 Test Program Output on Add Reference and bad entry type
     ${output}=    Run    python ./src/interact_with_index.py a asd
     Should Contain    ${output}    Invalid entry type!
+
+Test Create New Article With Non-Numeric Year
+    ${output}=    Run    python ./src/interact_with_index.py a article title year
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Value was not a number!
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+
+Test Create New Article With Non-Numeric Year And Then Numeric
+    ${output}=    Run    python ./src/interact_with_index.py a article title year 2023 author journal "" ckey
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Value was not a number!
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Enter value for author (Enter empty to abort):
+    Should Contain    ${output}    Enter value for journal (Enter empty to abort):
+    Should Contain    ${output}    Enter optional field name (Leave empty to finish):
+    Should Contain    ${output}    Enter the citation key (Enter empty to abort):
+
