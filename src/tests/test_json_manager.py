@@ -14,58 +14,58 @@ class TestJsonFunctions(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.test_data = {
-            "Ref1": {
-                "fields": {
-                    "entry_type": "Book",
-                    "author": "John Doe",
-                    "year": "2021"
-                }
+            "book-DeepLearning-2023": {
+                "entry_type": "book",
+                "title": "Deep Learning",
+                "year": "2023",
+                "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+                "publisher": "MIT Press"
             },
-            "Ref2": {
-                "fields": {
-                    "entry_type": "Article",
-                    "title": "The Future of AI",
-                    "year": "2023"
-                }
+            "book-AlgorithmsUnlocked-2018": {
+                "entry_type": "book",
+                "title": "Algorithms Unlocked",
+                "year": "2018",
+                "author": "Thomas H. Cormen",
+                "publisher": "MIT Press"
             },
-            "Ref3": {
-                "fields": {
-                    "entry_type": "Journal",
-                    "publisher": "Tech Times",
-                    "editor": "Jane Smith"
-                }
+            "book-QuantumComputation-2021": {
+                "entry_type": "book",
+                "title": "Quantum Computation and Quantum Information",
+                "year": "2021",
+                "author": "Michael A. Nielsen, Isaac L. Chuang",
+                "publisher": "Cambridge University Press"
             },
-            "Ref4": {
-                "fields": {
-                    "entry_type": "Conference Paper",
-                    "conference": "ICML 2023",
-                    "presenter": "Alex Brown"
-                }
+            "book-ArtificialIntelligence-2022": {
+                "entry_type": "book",
+                "title": "Artificial Intelligence: A Modern Approach",
+                "year": "2022",
+                "author": "Stuart Russell, Peter Norvig",
+                "publisher": "Pearson"
             },
-            "Ref5": {
-                "fields": {
-                    "entry_type": "Thesis",
-                    "university": "MIT",
-                    "student": "Emily White",
-                    "year": "2022"
-                }
+            "book-ThePragmaticProgrammer-2019": {
+                "entry_type": "book",
+                "title": "The Pragmatic Programmer",
+                "year": "2019",
+                "author": "Andrew Hunt, David Thomas",
+                "publisher": "Addison-Wesley Professional"
             }
         }
 
     def setUp(self):
-        self.test_path = "."
+        self.test_path = "./tests/"
         self.test_file = "test_data.json"
         self.test_full_path = os.path.join(self.test_path, self.test_file)
+        self.expected_full_path = get_full_path(self.test_path, self.test_file)
 
     def tearDown(self):
-        if os.path.exists(self.test_full_path):
-            os.remove(self.test_full_path)
+        if os.path.exists(self.expected_full_path):
+            os.remove(self.expected_full_path)
 
     def test_read_json_file(self):
         test_data = deepcopy(self.test_data)
-        with open(self.test_full_path, "w") as file:
+        with open(self.expected_full_path, "w") as file:
             json.dump(test_data, file)
-        self.assertTrue(os.path.exists(self.test_full_path),
+        self.assertTrue(os.path.exists(self.expected_full_path),
                         "File creation failed")
 
         read_data = read_json_file(self.test_path, self.test_file)
@@ -73,17 +73,19 @@ class TestJsonFunctions(unittest.TestCase):
 
     def test_write_json_file(self):
         test_data = deepcopy(self.test_data)
-        write_json_file(test_data, self.test_path, self.test_file)
-        self.assertTrue(os.path.exists(self.test_full_path),
+        write_json_file(test_data, file_path=self.test_path,
+                        file_name=self.test_file)
+        self.assertTrue(os.path.exists(self.expected_full_path),
                         "File creation failed")
 
-        with open(self.test_full_path, "r") as file:
+        with open(self.expected_full_path, "r") as file:
             read_data = json.load(file)
         self.assertEqual(self.test_data, read_data)
 
     def test_default_file_creation(self):
         read_data = read_json_file(self.test_path, self.test_file)
-        self.assertTrue(os.path.exists(self.test_full_path))
+        full_path = get_full_path(self.test_path, self.test_file)
+        self.assertTrue(os.path.exists(full_path))
         self.assertEqual({}, read_data)
 
     def test_convert_reference_manager_to_dict(self):
@@ -104,12 +106,12 @@ class TestJsonFunctions(unittest.TestCase):
                           f"reference {reference.name} not found in reference manager")
 
     def test_load_data(self):
-        with open(self.test_full_path, "w") as file:
+        with open(self.expected_full_path, "w") as file:
             json.dump(self.test_data, file)
         with patch('services.file_manager.read_json_file') as mock_read, \
                 patch('services.file_manager.convert_dict_to_reference_manager') as mock_convert:
             mock_read.return_value = self.test_data
-            load_data(self.test_path)
+            load_data(self.expected_full_path)
             mock_read.assert_called()
             mock_convert.assert_called()
 

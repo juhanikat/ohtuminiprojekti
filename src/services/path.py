@@ -1,7 +1,7 @@
 from os import path, makedirs
 
 
-def get_full_path(file_path: str = None, file_name: str = None):
+def get_full_path(file_path: str = None, file_name: str = None, full_path: str = None):
     '''
     Returns full path to file.
 
@@ -17,16 +17,16 @@ def get_full_path(file_path: str = None, file_name: str = None):
     '''
 
     folder_path = path.dirname(path.abspath(__file__))
-
+    if full_path:
+        if not path.exists(full_path):
+            makedirs(full_path)
+        return path.join(folder_path, "..", full_path)
     if not file_name:
         file_name = "data.json"
     if not file_path:
         file_path = "repositories/"
     abs_path = path.join(folder_path, "..", file_path)
-    print(abs_path, "\n", folder_path)
     if not path.exists(abs_path):
         makedirs(abs_path)
     full_path = path.join(abs_path, file_name)
-
-    # print(full_path)
     return full_path

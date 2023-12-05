@@ -160,8 +160,7 @@ def write_json_file(
     None
     '''
 
-    if not full_path:
-        full_path = get_full_path(file_path, file_name)
+    full_path = get_full_path(file_path, file_name, full_path)
     if not dictionary:
         dictionary = {}
 
