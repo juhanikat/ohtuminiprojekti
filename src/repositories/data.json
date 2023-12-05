@@ -1,13 +1,37 @@
 {
-    "cite": {
+    "book-DeepLearning-2023": {
         "entry_type": "book",
-        "author": "Timo",
-        "title": "Kirja",
-        "publisher": "HY",
-        "year": "2023"
+        "title": "Deep Learning",
+        "year": "2023",
+        "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+        "publisher": "MIT Press"
     },
-    "Testi": {
-        "entry_type": "misc",
-        "url": "moi.fi"
+    "book-AlgorithmsUnlocked-2018": {
+        "entry_type": "book",
+        "title": "Algorithms Unlocked",
+        "year": "2018",
+        "author": "Thomas H. Cormen",
+        "publisher": "MIT Press"
+    },
+    "book-QuantumComputation-2021": {
+        "entry_type": "book",
+        "title": "Quantum Computation and Quantum Information",
+        "year": "2021",
+        "author": "Michael A. Nielsen, Isaac L. Chuang",
+        "publisher": "Cambridge University Press"
+    },
+    "book-ArtificialIntelligence-2022": {
+        "entry_type": "book",
+        "title": "Artificial Intelligence: A Modern Approach",
+        "year": "2022",
+        "author": "Stuart Russell, Peter Norvig",
+        "publisher": "Pearson"
+    },
+    "book-ThePragmaticProgrammer-2019": {
+        "entry_type": "book",
+        "title": "The Pragmatic Programmer",
+        "year": "2019",
+        "author": "Andrew Hunt, David Thomas",
+        "publisher": "Addison-Wesley Professional"
     }
 }

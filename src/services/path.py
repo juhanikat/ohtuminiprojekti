@@ -15,12 +15,18 @@ def get_full_path(file_path: str = None, file_name: str = None):
     "/repositories/".
     file_name (str, optional): JSON file name. Defaults to "data.json".
     '''
+
+    folder_path = path.dirname(path.abspath(__file__))
+
     if not file_name:
         file_name = "data.json"
     if not file_path:
-        file_path = "./repositories/"
-    if not path.exists(file_path):
-        makedirs(file_path)
+        file_path = "repositories/"
+    abs_path = path.join(folder_path, "..", file_path)
+    print(abs_path, "\n", folder_path)
+    if not path.exists(abs_path):
+        makedirs(abs_path)
+    full_path = path.join(abs_path, file_name)
 
-    full_path = path.join(file_path, file_name)
+    # print(full_path)
     return full_path
