@@ -111,3 +111,15 @@ class TestReferenceManager(unittest.TestCase):
         self.rm.new("TestReference3", {"title" : "sample2"})
         result = self.rm.search({"title" : "sample2"}, True)
         self.assertEqual(len(result), 1)
+
+    def test_search_mismatch_case(self):
+        self.rm.new("TestReference1", {"title" : "samPLE"})
+        result = self.rm.search({"title" : "SAMple"})
+        self.assertEqual(len(result), 1)
+
+    def test_search_multiple_terms(self):
+        self.rm.new("TestReference1", {"author" : "test1", "title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test1", "title" : "sample2"})
+        self.rm.new("TestReference3", {"author" : "test2", "title" : "sample1"})
+        result = self.rm.search({"author" : "test1", "title" : "sample1"})
+        self.assertEqual(len(result), 1)

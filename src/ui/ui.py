@@ -102,7 +102,7 @@ class UI:
 
     def manager_search(self):
         possible_fields = self.manager.get_all_fields()
-        self.io.write(f"Possible fields: {possible_fields}\n")
+        self.io.write(f"Possible fields: {', '.join(possible_fields)}\n")
 
         search_dict = {}
 

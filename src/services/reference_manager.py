@@ -93,7 +93,7 @@ class ReferenceManager:
                 lambda ref: field in ref.fields.keys(), self.references):
             if ref.fields[field] == value:
                 matches.append(ref)
-            elif ref.fields[field].lower().find(value) != -1 and not exact_match:
+            elif ref.fields[field].lower().find(value.lower()) != -1 and not exact_match:
                 matches.append(ref)
 
         return matches
@@ -108,14 +108,16 @@ class ReferenceManager:
         Returns:
             list: All matching references (empty if no matches).
         """
-        matches = []
+        result = None
 
         for key, value in fields.items():
-            loop_matches = self.find_by_attribute(key, value, exact_match)
-            for ref in loop_matches:
-                matches.append(ref)
+            if result is None:
+                result = set(self.find_by_attribute(key, value, exact_match))
+                continue
+            result = result.intersection(
+                set(self.find_by_attribute(key, value, exact_match)))
 
-        return matches
+        return list(result)
 
     def remove(self, name: str):
         """
