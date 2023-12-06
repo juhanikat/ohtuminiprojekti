@@ -39,14 +39,14 @@ class ReferenceManager:
         else:
             raise ValueError(f"Reference with name '{name}' already exists")
 
-    def edit(self, name: str, field: str, value=None):
+    def edit(self, name: str, field: str, value: str = None):
         """
         Edit an attribute in a reference.
 
         Parameters
             name (str): The name of the reference.
             field (str): The field to edit.
-            value (any, optional): The value to put on the field.
+            value (str, optional): The value to put on the field.
 
         Returns:
             bool: Was specified reference found.
@@ -74,13 +74,15 @@ class ReferenceManager:
                 return ref
         return None
 
-    def find_by_attribute(self, field: str, value):
+    def find_by_attribute(self, field: str, value: str,
+                          exact_match: bool = False):
         """
         Get all references with a specified value in a specified field.
 
         Parameters:
             field (str): The field to check in.
-            value (Any): The value to check for.
+            value (str): The value to check for.
+            exact_match (bool, optional): Values must be exactly equal.
 
         Returns:
             list: All matching references (empty if no matches).
@@ -91,6 +93,25 @@ class ReferenceManager:
                 lambda ref: field in ref.fields.keys(), self.references):
             if ref.fields[field] == value:
                 matches.append(ref)
+            elif ref.fields[field].find(value) != -1 and not exact_match:
+                matches.append(ref)
+
+        return matches
+
+    def search(self, fields: dict, exact_match: bool = False):
+        """
+        Search references using multiple fields.
+
+        Parameters:
+            fields (dict): Key, value pair to search for.
+            exact_match (bool, optional): Match values exactly
+        Returns:
+            list: All matching references (empty if no matches).
+        """
+        matches = []
+
+        for key, value in fields:
+            matches.append(self.find_by_attribute(key, value, exact_match))
 
         return matches
 
@@ -118,3 +139,20 @@ class ReferenceManager:
             list: References in this manager.
         """
         return self.references
+
+    def get_all_fields(self):
+        """
+        Get a list containing all fields found in the references
+        of this manager.
+        Fields are returned sorted.
+
+        Returns:
+            list: Fields in the references of this manager.
+        """
+        fields = set()
+
+        for ref in self.references:
+            for field in ref.fields.keys():
+                fields.add(field)
+
+        return sorted(fields)
