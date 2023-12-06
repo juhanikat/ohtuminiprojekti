@@ -53,6 +53,3 @@ class ui_library:
     def create_test_reference(self):
         self.manager.new("test", {"entry_type": "article", "author": "me",
                          "title": "hello", "journal": "what", "year": "1991"})
-
-    def remove_reference(self, name):
-        return self.manager.remove(name)

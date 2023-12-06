@@ -41,3 +41,31 @@ Test Create New Article With Non-Numeric Year And Then Numeric
     Should Contain    ${output}    Enter optional field name (Leave empty to finish):
     Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
 
+Test Output Remove
+    ${output}=    Run    python ./src/interact_with_index.py r test_key
+    Should Contain    ${output}    Type the name of the reference to remove:
+    Should Contain    ${output}    Reference with name 'test_key' not found
+
+Test Remove With Reference And Right Key
+    ${output}=    Run    python ./src/interact_with_index.py a article title 2023 author journal "" test_key r test_key
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Enter value for author (Enter empty to abort):
+    Should Contain    ${output}    Enter value for journal (Enter empty to abort):
+    Should Contain    ${output}    Enter optional field name (Leave empty to finish):
+    Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
+    Should Contain    ${output}    Type the name of the reference to remove:
+    Should Contain    ${output}    Removed reference with name: test_key
+
+Test Remove With Reference And Wrong Key
+    ${output}=    Run    python ./src/interact_with_index.py a article title 2023 author journal "" test_key r wrong_key
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Enter value for author (Enter empty to abort):
+    Should Contain    ${output}    Enter value for journal (Enter empty to abort):
+    Should Contain    ${output}    Enter optional field name (Leave empty to finish):
+    Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
+    Should Contain    ${output}    Type the name of the reference to remove:
+    Should Contain    ${output}    Reference with name 'wrong_key' not found
