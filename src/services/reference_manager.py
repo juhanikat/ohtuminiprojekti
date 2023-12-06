@@ -110,8 +110,10 @@ class ReferenceManager:
         """
         matches = []
 
-        for key, value in fields:
-            matches.append(self.find_by_attribute(key, value, exact_match))
+        for key, value in fields.items():
+            loop_matches = self.find_by_attribute(key, value, exact_match)
+            for ref in loop_matches:
+                matches.append(ref)
 
         return matches
 

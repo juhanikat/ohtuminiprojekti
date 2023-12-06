@@ -97,3 +97,17 @@ class TestReferenceManager(unittest.TestCase):
         self.rm.new("TestReference2", {"author" : "test", "title" : "sample"})
         result = self.rm.get_all_fields()
         self.assertEqual(result, ["author", "title"])
+
+    def test_search(self):
+        self.rm.new("TestReference1", {"title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test", "title" : "sample1"})
+        self.rm.new("TestReference3", {"title" : "sample2"})
+        result = self.rm.search({"title" : "sample"})
+        self.assertEqual(len(result), 3)
+
+    def test_search_dont_match(self):
+        self.rm.new("TestReference1", {"title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test", "title" : "sample1"})
+        self.rm.new("TestReference3", {"title" : "sample2"})
+        result = self.rm.search({"title" : "sample2"}, True)
+        self.assertEqual(len(result), 1)
