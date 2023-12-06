@@ -1,4 +1,3 @@
-from logging import Manager
 from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
 from services.path import get_full_path
@@ -33,19 +32,17 @@ class UI:
         '''
         self.manager.file_path = get_full_path(new_file_path, new_file_name)
 
-    def create_table(self, type):
+    def create_type_table(self, type, references):
         """
-        Creates an AsciiTable containing all created references of a specific type.
+        Creates an AsciiTable containing all inputted references of a specific type.
 
         Args:
             type: The type of reference, for example 'article', 'book' etc.
+            references: List of references.
 
         Returns:
             The table as a string.
         """
-        references = self.manager.find_by_attribute("entry_type", type)
-        if not references:
-            return False
         required_fields = REQUIRED_FIELDS[type]
 
         table = []
@@ -61,16 +58,29 @@ class UI:
         table = AsciiTable(table, type)
         return table.table
 
-    def create_all_tables(self):
+    def create_all_tables(self, references=None):
         """
-        Uses create_table() to create a table for every type of reference. Doesn't create a table if no references of that type exist.
+        Uses create_type_table() to create a table for every type of reference. Doesn't create a table if no references of that type exist.
+
+        Args:
+            references (optional): Use these references instead of the ones in the reference manager.
 
         Returns:
             The table as a string.
         """
         big_table = ""
         for type in REQUIRED_FIELDS:
-            subtable = self.create_table(type)
+            if references is None:
+                references_of_type = self.manager.find_by_attribute(
+                    "entry_type", type)
+            else:
+                references_of_type = [
+                    ref for ref in filter(
+                        lambda ref: ref.get_type() == type,
+                        references)]
+            if not references_of_type:
+                continue
+            subtable = self.create_type_table(type, references_of_type)
             if subtable:
                 big_table += subtable + "\n"
 
@@ -89,13 +99,33 @@ class UI:
             # creates new Reference object and adds it to the manager
             self.manager.new(entry[0], entry[1])
         return entry
-    
+
+    def manager_search(self):
+        possible_fields = self.manager.get_all_fields()
+        self.io.write(f"Possible fields: {possible_fields}\n")
+
+        search_dict = {}
+
+        while True:
+            field = self.io.read(
+                "Enter a field to search in (leave empty to start search): ")
+            if field == "":
+                break
+            if field not in possible_fields:
+                self.io.write(f"No references with a value for '{field}'")
+                continue
+            value = self.io.read(f"Enter value for '{field}': ")
+            search_dict[field] = value
+
+        return self.manager.search(search_dict)
+
     def ask_for_input(self):
         choice = self.io.read(
             "Input a to add a new reference\n"
             "Input l to list all references\n"
             "Input r to remove a reference\n"
             "Input e to export references as a .bib file\n"
+            "Input s to search references\n"
             "Input q to exit\n").strip().lower()
         if choice == 'a':
             self.new_entry()
@@ -119,6 +149,9 @@ class UI:
                 self.io.write(f"Removed reference with name: {remove_key}")
             else:
                 self.io.write(f"Reference with name '{remove_key}' not found")
+        elif choice == 's':
+            found_references = self.manager_search()
+            self.io.write(self.create_all_tables(found_references))
         elif choice == 'q':
             return -1
         else:
