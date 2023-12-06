@@ -58,6 +58,22 @@ class TestReferenceManager(unittest.TestCase):
         result = self.rm.find_by_attribute("field2", "value2")
         self.assertEqual(len(result), 0)
 
+    def test_find_by_attribute_partial(self):
+        self.rm.new("TestReference", {"field1": "value1"})
+        result = self.rm.find_by_attribute("field1", "lue")
+        self.assertEqual(len(result), 1)
+    
+    def test_find_by_attribute_partial_dont_match(self):
+        self.rm.new("TestReference", {"field1": "value1"})
+        result = self.rm.find_by_attribute("field1", "lue", True)
+        self.assertEqual(len(result), 0)
+    
+    def test_find_by_attribute_exact(self):
+        self.rm.new("TestReference", {"field1": "value1"})
+        result = self.rm.find_by_attribute("field1", "value1", True)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0].name, "TestReference")
+
     def test_remove_reference(self):
         self.rm.new("TestReference")
         result = self.rm.remove("TestReference")
@@ -75,7 +91,23 @@ class TestReferenceManager(unittest.TestCase):
         self.assertEqual(len(result), 2)
         self.assertIsInstance(result[0], Reference)
         self.assertIsInstance(result[1], Reference)
+    
+    def test_get_all_fields(self):
+        self.rm.new("TestReference1", {"title" : "sample"})
+        self.rm.new("TestReference2", {"author" : "test", "title" : "sample"})
+        result = self.rm.get_all_fields()
+        self.assertEqual(result, ["author", "title"])
 
+    def test_search(self):
+        self.rm.new("TestReference1", {"title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test", "title" : "sample1"})
+        self.rm.new("TestReference3", {"title" : "sample2"})
+        result = self.rm.search({"title" : "sample"})
+        self.assertEqual(len(result), 3)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_search_dont_match(self):
+        self.rm.new("TestReference1", {"title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test", "title" : "sample1"})
+        self.rm.new("TestReference3", {"title" : "sample2"})
+        result = self.rm.search({"title" : "sample2"}, True)
+        self.assertEqual(len(result), 1)
