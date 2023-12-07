@@ -15,6 +15,7 @@ Group: Fast Fishes
     - [Location of Stored References](#location-of-stored-references)
     - [Exporting References](#exporting-references)
 5. [Retrospective Results](#retrospective-results)
+6. [LICENSE](#license)
 
 ## Definition of Done:
 - Functionality has been implemented
@@ -43,17 +44,17 @@ Run the program with the command:
 ```bash
 poetry run python3 src/index.py
 ```
-At the start of execution program automatically loads the data from the data.json file.
+At the start of execution, the program automatically loads the data from the data.json file.
 When the program is running, you can use it via terminal UI.
 The use options are the following:
-- Input a to add new reference
- - The program asks for inputs for the reference and saves it in reference manager
+- Input a to add a new reference
+ - The program asks for inputs for the reference and saves it in the reference manager
 - Input l to view references
  - The program prints all references in the reference manager
 - Input r to remove a reference
  - The program deletes a reference from the reference manager
 - Input e to export references
- - The program exports all references in the reference manager to a bibtex file
+ - The program exports all references in the reference manager to a Bibtex file
 - Input s to search references
  - User can input various parameters to limit the viewed references
 - Input q to quit the program
@@ -77,13 +78,12 @@ All inputted references are stored in a JSON file for easy access and management
 
 ### Exporting References
 
-Exported bibtex files are stored in the following directory: src/exports/bibtex_export.bib
-
-## Liecense
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/juhanikat/ohtuminiprojekti/blob/main/LICENSE.md)
+Exported BibTeX files are stored in the following directory: src/exports/bibtex_export.bib
 
 ## Retrospective Results
 
 Results of retrospectives can be found in the [retro.md](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/retro.md). The results are in Finnish.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/juhanikat/ohtuminiprojekti/blob/main/LICENSE.md)
