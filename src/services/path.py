@@ -1,7 +1,9 @@
 import os
 
 
-def get_full_path(file_path="repositories", file_name="data.json", full_path=None):
+def get_full_path(file_path="repositories",
+                  file_name="data.json",
+                  full_path=None):
     '''
     Returns full path to file.
 

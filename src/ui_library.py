@@ -14,7 +14,8 @@ class ui_library:
 
     def output_should_contain(self, value):
         """
-        raises AssertionError if value doesn't match any part of any string in outputs.
+        raises AssertionError if value doesn't match any part of any string in 
+        outputs.
         """
         outputs = self.io.outputs
         inputs = self.io.inputs
