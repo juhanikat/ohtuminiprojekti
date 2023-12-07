@@ -11,11 +11,12 @@ Group: Fast Fishes
     - [Installation](#installation)
     - [Running the Program](#running-the-program)
 3. [Backlog](#backlog)
-4. [File Storage and Export Details](#file-storage-and-export-details)
+4. [Codecov - test coverage](#codecov)
+5. [File Storage and Export Details](#file-storage-and-export-details)
     - [Location of Stored References](#location-of-stored-references)
     - [Exporting References](#exporting-references)
-5. [Retrospective Results](#retrospective-results)
-6. [LICENSE](#license)
+6. [Retrospective Results](#retrospective-results)
+7. [LICENSE](#license)
 
 ## Definition of Done:
 - Functionality has been implemented
