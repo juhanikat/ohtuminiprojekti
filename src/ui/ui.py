@@ -46,17 +46,23 @@ class UI:
         required_fields = REQUIRED_FIELDS[type]
 
         table = []
-        heading = ["name", "type"] + required_fields
+        heading = ["name"] + required_fields + ["extra fields"]
         table.append(heading)
         for reference in references:
-            new_row = [reference.name, reference.get_type()]
+            new_row = [reference.name]
             fields = reference.get_fields_as_dict()
             for field in required_fields:
                 new_row.append(fields[field])
+            extra_fields = [
+                key for key in fields if key not in required_fields and key != "entry_type"]
+            if len(extra_fields) > 3:
+                extra_fields = extra_fields[:3]
+                extra_fields.append("...")
+            new_row.append(", ".join(extra_fields))
             table.append(new_row)
 
         table = AsciiTable(table, type)
-        return table.table
+        return "\n" + table.table
 
     def create_all_tables(self, references=None):
         """
@@ -75,9 +81,7 @@ class UI:
                     "entry_type", type)
             else:
                 references_of_type = [
-                    ref for ref in filter(
-                        lambda ref: ref.get_type() == type,
-                        references)]
+                    ref for ref in references if ref.get_type() == type]
             if not references_of_type:
                 continue
             subtable = self.create_type_table(type, references_of_type)
