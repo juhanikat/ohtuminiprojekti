@@ -123,3 +123,9 @@ class TestReferenceManager(unittest.TestCase):
         self.rm.new("TestReference3", {"author" : "test2", "title" : "sample1"})
         result = self.rm.search({"author" : "test1", "title" : "sample1"})
         self.assertEqual(len(result), 1)
+    
+    def test_search_empty(self):
+        self.rm.new("TestReference1", {"author" : "test1", "title" : "sample1"})
+        self.rm.new("TestReference2", {"author" : "test1", "title" : "sample2"})
+        result = self.rm.search({})
+        self.assertEqual(len(result), 0)

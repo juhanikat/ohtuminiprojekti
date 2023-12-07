@@ -117,7 +117,7 @@ class ReferenceManager:
             result = result.intersection(
                 set(self.find_by_attribute(key, value, exact_match)))
 
-        return list(result)
+        return list(result) if result is not None else []
 
     def remove(self, name: str):
         """
