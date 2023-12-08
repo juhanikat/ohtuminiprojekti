@@ -75,5 +75,4 @@ def create_bib_data(rm: ReferenceManager):
 
 
 def reference_to_entry(ref: Reference):
-    fields = {key: str(value) for key, value in ref.get_fields_as_tuples()}
-    return Entry(ref.get_type(), fields)
+    return Entry(ref.get_type(), ref.get_fields_as_tuples())
