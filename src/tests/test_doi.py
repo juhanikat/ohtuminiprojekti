@@ -27,7 +27,7 @@ class TestDOI(unittest.TestCase):
             'author': 'tony montana',
             'title': 'keittokirja',
             'publisher': 'otava',
-            'year': 2023
+            'year': '2023'
         }
 
         expected_result = (expected_citation, expected_dict)
@@ -55,7 +55,7 @@ class TestDOI(unittest.TestCase):
             'author': 'tony montana',
             'title': 'keittokirja',
             'publisher': 'otava',
-            'year': 2023
+            'year': '2023'
         }
 
         expected_result = (expected_citation, expected_dict)
@@ -99,7 +99,7 @@ class TestDOI(unittest.TestCase):
 
         after_dict = {
             'entry_type': 'inbook',
-            'pages': 50,
+            'pages': '50',
         }
 
         parse_field("pages", before_dict, "inbook", test_data)
