@@ -45,6 +45,13 @@ def fetch_data ():
             return False
 
         data = retrieve_data_from_database(doi)
+
+        #for key, value in data.items():
+        #    print(f"{key}: {value}")
+
+        if not data:
+            continue
+
         data = convert_data(data)
 
         if data is not False and validate_data(data):
@@ -87,35 +94,31 @@ def convert_data (data):
 
     return entry
 
-def parse_field (field, entry, entry_type, data):
+def parse_field (field, fields, entry_type, data):
     """
     Parses fields from data to the entry.
     """
     if field in ['publisher', 'chapter', 'school', 'institution', 'note']:
-        entry[field] = data.get(field, '')
+        fields[field] = data.get(field, '')
     elif field == 'title':
-        entry[field] = data.get('title', [''])[0]
+        fields[field] = data.get('title', [''])[0]
     elif field == 'year':
         year = data.get('issued', {}).get('date-parts', [[None]])[0][0]
-        entry[field] = int(year) if year is not None else None
+        fields[field] = int(year) if year is not None else None
     elif field == 'author':
         if entry_type == 'book' and 'author' not in data:
             authors = data.get('editor', [])
         else:
             authors = data.get('author', [])
-        entry[field] = ', '.join([f"{author['given']} {author['family']}"
+        fields[field] = ', '.join([f"{author['given']} {author['family']}"
                                   for author in authors])
     elif field in ('journal', 'booktitle'):
-        entry[field] = data.get('container-title', [''])[0]
+        if field in data:
+            fields[field] = data[field]
     elif field == 'pages':
         pages = data.get('page', '')
         if pages and '-' in pages:
             first = pages.split('-')[0]
-            entry[field] = int(first) if first.isdigit() else first
+            fields[field] = int(first) if first.isdigit() else first
         else:
-            entry[field] = int(pages) if pages.isdigit() else pages
-
-
-#doi = "10.1007/978-981-99-1428-9"
-#data = read_data_from_database(doi)
-#entry_data = convert_data(data)
+            fields[field] = int(pages) if pages.isdigit() else pages
