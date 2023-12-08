@@ -92,6 +92,10 @@ def convert_data (data):
         for field in required_fields:
             parse_field(field, entry, entry_type, data)
 
+    for key in entry:
+        if entry[key] is not None:
+            entry[key] = str(entry[key])
+
     return entry
 
 def parse_field (field, fields, entry_type, data):
@@ -104,7 +108,7 @@ def parse_field (field, fields, entry_type, data):
         fields[field] = data.get('title', [''])[0]
     elif field == 'year':
         year = data.get('issued', {}).get('date-parts', [[None]])[0][0]
-        fields[field] = int(year) if year is not None else None
+        fields[field] = year if year is not None else None
     elif field == 'author':
         if entry_type == 'book' and 'author' not in data:
             authors = data.get('editor', [])
@@ -119,6 +123,6 @@ def parse_field (field, fields, entry_type, data):
         pages = data.get('page', '')
         if pages and '-' in pages:
             first = pages.split('-')[0]
-            fields[field] = int(first) if first.isdigit() else first
+            fields[field] = first if first.isdigit() else first
         else:
-            fields[field] = int(pages) if pages.isdigit() else pages
+            fields[field] = pages if pages.isdigit() else pages

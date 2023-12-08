@@ -51,12 +51,5 @@
         "author": "Alice Johnson, Bob Lee",
         "booktitle": "Proceedings of the International Conference on Artificial Intelligence",
         "pages": "45-60"
-    },
-    "asd": {
-        "entry_type": "book",
-        "title": "Frontier Computing",
-        "year": 2023,
-        "author": "Jason C. Hung, Neil Y. Yen, Jia-Wei Chang",
-        "publisher": "Springer Nature Singapore"
     }
 }
