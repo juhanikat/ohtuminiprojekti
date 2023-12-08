@@ -27,6 +27,24 @@ def validate_input(field_type, value):
     return True
 
 
+def validate_data (data):
+    """
+    Validifies all fields in data
+
+    Parameters:
+        data, dict.
+
+    Returns:
+        False, if aborting process
+        data: dict, if data retrieved successfully
+    """
+    for key, value in data.items():
+        if not validate_input(key, value):
+            print("Invalid data!")
+            return False
+    return True
+
+
 def validate_as_positive_integer(value):
     """
     Validates whether input is a positive number

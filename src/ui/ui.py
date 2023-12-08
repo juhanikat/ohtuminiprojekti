@@ -1,10 +1,12 @@
 from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
+from services.doi_fetcher import create_entry_by_doi
 from services.path import get_full_path
 from default_io import DefaultIO
 from bibtex_export import export_to_bibtex
 from terminaltables import AsciiTable
 from resources.bibtex_data import REQUIRED_FIELDS
+
 
 
 class UserInputError(Exception):
@@ -104,6 +106,13 @@ class UI:
             self.manager.new(entry[0], entry[1])
         return entry
 
+    def new_entry_using_doi(self):
+        entry = create_entry_by_doi(self.manager)
+        if entry:
+            # creates new Reference object using doi and adds it to the manager
+            self.manager.new(entry[0], entry[1])
+        return entry
+
     def manager_search(self):
         possible_fields = self.manager.get_all_fields()
         self.io.write(f"Possible fields: {', '.join(possible_fields)}\n")
@@ -126,6 +135,7 @@ class UI:
     def ask_for_input(self):
         choice = self.io.read(
             "Input a to add a new reference\n"
+            "Input g to get a new reference using DOI\n"
             "Input l to list all references\n"
             "Input r to remove a reference\n"
             "Input e to export references as a .bib file\n"
@@ -133,6 +143,8 @@ class UI:
             "Input q to exit\n").strip().lower()
         if choice == 'a':
             self.new_entry()
+        elif choice == 'g':
+            self.new_entry_using_doi()
         elif choice == 'l':
             # prints all saved references as a table
             self.io.write(self.create_all_tables())
