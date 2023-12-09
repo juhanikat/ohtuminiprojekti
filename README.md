@@ -5,6 +5,7 @@
 
 Group: Fast Fishes
 
+
 # Table of Contents
 1. [Definition of Done](#definition-of-done)
 2. [Installing and Running the Program](#installing-and-running-the-program)
