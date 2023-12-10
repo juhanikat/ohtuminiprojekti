@@ -11,11 +11,11 @@ def export_to_bibtex(reference_manager: ReferenceManager,
                      overwrite: bool = False):
     """
     Create a new BibTeX file from a ReferenceManager.
-    By defualt, new files are created in './exports/'
+    By default, new files are created in './exports/'
     and the file name is 'bibtex_export.bib'.
 
     Parameters:
-        reference_manager (ReferenceManager): The refrence manager to
+        reference_manager (ReferenceManager): The reference manager to
         export from.
         file_path (str, optional): The path where the file is created.
         Default is './exports/'.

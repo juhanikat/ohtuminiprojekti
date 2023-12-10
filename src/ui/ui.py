@@ -2,7 +2,7 @@ from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
 from services.doi_fetcher import create_entry_by_doi
 from services.path import get_full_path
-from bibtex_export import export_to_bibtex
+from services.bibtex_export import export_to_bibtex
 from terminaltables import AsciiTable
 from resources.bibtex_data import REQUIRED_FIELDS
 
@@ -138,13 +138,17 @@ class UI:
             "Input e to export references as a .bib file\n"
             "Input s to search references\n"
             "Input q to exit\n").strip().lower()
+
         if choice == 'a':
             self.new_entry()
+
         elif choice == 'g':
             self.new_entry_using_doi()
+
         elif choice == 'l':
             # prints all saved references as a table
             print(self.create_all_tables())
+
         elif choice == 'f':
             new_file_path = input("Type new file path here: ").strip()
             if not new_file_path:
@@ -152,8 +156,11 @@ class UI:
             new_file_name = input(
                 "Type new file name here (leave empty for default name): ").strip()
             self.change_file_path(new_file_path, new_file_name)
+
         elif choice == 'e':
             export_to_bibtex(self.manager)
+            print("Exported!")
+
         elif choice == 'r':
             remove_key = input(
                 "Type the name of the reference to remove: ").strip()
@@ -162,14 +169,16 @@ class UI:
                 print(f"Removed reference with name: {remove_key}")
             else:
                 print(f"Reference with name '{remove_key}' not found")
+
         elif choice == 's':
             found_references = self.manager_search()
             print(self.create_all_tables(found_references))
+
         elif choice == 'q':
             return -1
+
         else:
-            print("Invalid input")
-        print("")
+            raise UserInputError("Invalid input")
 
     def ui_loop(self):
         while True:
@@ -177,7 +186,8 @@ class UI:
             try:
                 result = self.ask_for_input()
             except UserInputError as error:
-                print(error)
+                print(str(error) + "\n")
                 continue
             if result == -1:
                 return -1
+            print("")

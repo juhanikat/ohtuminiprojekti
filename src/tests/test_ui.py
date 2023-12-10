@@ -2,14 +2,12 @@ import unittest
 from unittest.mock import patch
 from ui.ui import UI, UserInputError
 from services.reference_manager import ReferenceManager
-from stub_io import StubIO
 from entities.reference import Reference
 
 
 class TestUi(unittest.TestCase):
     def setUp(self) -> None:
         self.manager = ReferenceManager()
-        self.io = StubIO()
         self.ui = UI(self.manager)
 
     def test_listing_references(self):

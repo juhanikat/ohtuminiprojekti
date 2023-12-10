@@ -2,7 +2,7 @@ import unittest
 import os
 from unittest.mock import Mock, patch, mock_open
 from pybtex.database import BibliographyData, Entry
-from bibtex_export import export_to_bibtex, create_bibtex_string, create_bib_data, reference_to_entry
+from services.bibtex_export import export_to_bibtex, create_bibtex_string, create_bib_data, reference_to_entry
 
 class TestBibTeXExport(unittest.TestCase):
     def setUp(self): 
@@ -18,7 +18,7 @@ class TestBibTeXExport(unittest.TestCase):
         expected_path = "./exports/bibtex_export.bib"
 
         with patch("builtins.open", mock_open()) as mock_file, \
-             patch("bibtex_export.get_full_path", return_value=expected_path):
+             patch("services.bibtex_export.get_full_path", return_value=expected_path):
             path = export_to_bibtex(self.reference_manager)
 
             mock_file.assert_called_with(path, "w", encoding="utf-8")
@@ -35,7 +35,7 @@ class TestBibTeXExport(unittest.TestCase):
         empty_reference_manager.get_all_references.return_value = []
 
         with patch("builtins.open", mock_open()) as mock_file, \
-             patch("bibtex_export.get_full_path", return_value=expected_path):
+             patch("services.bibtex_export.get_full_path", return_value=expected_path):
             path = export_to_bibtex(empty_reference_manager)
 
             mock_file.assert_called_with(path, "w", encoding="utf-8")
