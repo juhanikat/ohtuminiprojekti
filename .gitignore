@@ -10,4 +10,4 @@ poetry.lock
 log.html
 output.xml
 report.html
-exports/*
+**/bibtex_export*
