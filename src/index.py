@@ -1,5 +1,4 @@
 from ui.ui import UI
-from default_io import DefaultIO
 from services.file_manager import save_data, load_data
 
 
