@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
-from services.doi_fetcher import create_entry_by_doi
-from services.doi_fetcher import parse_field
+
+from services.doi_fetcher import create_entry_by_doi, parse_field
 
 doi_path = "services.doi_fetcher"
 

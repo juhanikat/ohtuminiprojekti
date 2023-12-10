@@ -1,4 +1,5 @@
 import unittest
+
 from entities.reference import Reference
 from services.reference_manager import ReferenceManager
 

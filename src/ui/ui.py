@@ -1,10 +1,11 @@
-from services.reference_manager import ReferenceManager
-from services.entry_writer import create_entry
-from services.doi_fetcher import create_entry_by_doi
-from services.path import get_full_path
-from services.bibtex_export import export_to_bibtex
 from terminaltables import AsciiTable
+
 from resources.bibtex_data import REQUIRED_FIELDS
+from services.bibtex_export import export_to_bibtex
+from services.doi_fetcher import create_entry_by_doi
+from services.entry_writer import create_entry
+from services.path import get_full_path
+from services.reference_manager import ReferenceManager
 
 
 class UserInputError(Exception):

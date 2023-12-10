@@ -1,8 +1,12 @@
-import unittest
 import os
-from unittest.mock import Mock, patch, mock_open
+import unittest
+from unittest.mock import Mock, mock_open, patch
+
 from pybtex.database import BibliographyData, Entry
-from services.bibtex_export import export_to_bibtex, create_bibtex_string, create_bib_data, reference_to_entry
+
+from services.bibtex_export import (create_bib_data, create_bibtex_string,
+                                    export_to_bibtex, reference_to_entry)
+
 
 class TestBibTeXExport(unittest.TestCase):
     def setUp(self): 

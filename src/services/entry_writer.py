@@ -1,6 +1,6 @@
+from resources.bibtex_data import REQUIRED_FIELDS
 from services.cite_generator import generate_citation
 from services.validifier import validate_input
-from resources.bibtex_data import REQUIRED_FIELDS
 
 
 def create_entry(manager=None):

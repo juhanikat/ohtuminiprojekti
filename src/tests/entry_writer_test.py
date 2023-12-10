@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+
 from services.entry_writer import create_entry
 
 entry_writer_path = "services.entry_writer"

@@ -1,5 +1,5 @@
+from services.file_manager import load_data, save_data
 from ui.ui import UI
-from services.file_manager import save_data, load_data
 
 
 def main():

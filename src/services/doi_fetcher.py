@@ -1,7 +1,8 @@
 from habanero import Crossref
+
+from resources.bibtex_data import REQUIRED_FIELDS
 from services.entry_writer import create_citation_key
 from services.validifier import validate_data
-from resources.bibtex_data import REQUIRED_FIELDS
 
 
 def create_entry_by_doi(manager=None):

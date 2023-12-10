@@ -1,9 +1,13 @@
 import os
+
 from pybtex.database import BibliographyData, Entry
-# Docs: https://pybtex.org/
-from services.reference_manager import ReferenceManager
-from services.path import get_full_path
+
 from entities.reference import Reference
+from services.path import get_full_path
+from services.reference_manager import ReferenceManager
+
+# Pybtex Docs: https://pybtex.org/
+
 
 
 def export_to_bibtex(reference_manager: ReferenceManager,
@@ -60,7 +64,7 @@ def create_bibtex_string(reference_manager: ReferenceManager):
 
     Parameters:
         reference_manager (RerefenceManager): The reference manager to convert.
-    
+
     Returns:
         str: References as a BibTex formatted string.
     """

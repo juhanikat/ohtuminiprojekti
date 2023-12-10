@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import patch
-from ui.ui import UI, UserInputError
-from services.reference_manager import ReferenceManager
+
 from entities.reference import Reference
+from services.reference_manager import ReferenceManager
+from ui.ui import UI, UserInputError
 
 
 class TestUi(unittest.TestCase):
