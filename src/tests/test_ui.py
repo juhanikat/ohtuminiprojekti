@@ -10,7 +10,7 @@ class TestUi(unittest.TestCase):
     def setUp(self) -> None:
         self.manager = ReferenceManager()
         self.io = StubIO()
-        self.ui = UI(self.manager, self.io)
+        self.ui = UI(self.manager)
 
     def test_listing_references(self):
         result = self.ui.list_all_references()
@@ -19,14 +19,14 @@ class TestUi(unittest.TestCase):
         result = self.ui.list_all_references()
         self.assertIn("testing", result)
 
-    @patch("stub_io.StubIO.write")
+    @patch("builtins.print")
     @patch("ui.ui.input", create=True)
     def test_listing_empty(self, mock_input, mock_print):
         mock_input.side_effect = ['l']
         self.ui.ask_for_input()
         mock_print.assert_called_with("")
 
-    @patch("stub_io.StubIO.read", create=True)
+    @patch("builtins.input", create=True)
     def test_changing_file_path_to_empty(self, mock_input):
         mock_input.side_effect = ['f', '']
         self.assertRaises(

@@ -2,11 +2,9 @@ from services.reference_manager import ReferenceManager
 from services.entry_writer import create_entry
 from services.doi_fetcher import create_entry_by_doi
 from services.path import get_full_path
-from default_io import DefaultIO
 from bibtex_export import export_to_bibtex
 from terminaltables import AsciiTable
 from resources.bibtex_data import REQUIRED_FIELDS
-
 
 
 class UserInputError(Exception):
@@ -14,9 +12,8 @@ class UserInputError(Exception):
 
 
 class UI:
-    def __init__(self, manager: ReferenceManager, io=DefaultIO()):
+    def __init__(self, manager: ReferenceManager):
         self.manager = manager
-        self.io = io
 
     def change_file_path(self, new_file_path: str, new_file_name: str = None):
         '''
@@ -115,25 +112,25 @@ class UI:
 
     def manager_search(self):
         possible_fields = self.manager.get_all_fields()
-        self.io.write(f"Possible fields: {', '.join(possible_fields)}\n")
+        print(f"Possible fields: {', '.join(possible_fields)}\n")
 
         search_dict = {}
 
         while True:
-            field = self.io.read(
+            field = input(
                 "Enter a field to search in (leave empty to start search): ")
             if field == "":
                 break
             if field not in possible_fields:
-                self.io.write(f"No references with a value for '{field}'")
+                print(f"No references with a value for '{field}'")
                 continue
-            value = self.io.read(f"Enter value for '{field}': ")
+            value = input(f"Enter value for '{field}': ")
             search_dict[field] = value
 
         return self.manager.search(search_dict)
 
     def ask_for_input(self):
-        choice = self.io.read(
+        choice = input(
             "Input a to add a new reference\n"
             "Input g to get a new reference using DOI\n"
             "Input l to list all references\n"
@@ -147,32 +144,32 @@ class UI:
             self.new_entry_using_doi()
         elif choice == 'l':
             # prints all saved references as a table
-            self.io.write(self.create_all_tables())
+            print(self.create_all_tables())
         elif choice == 'f':
-            new_file_path = self.io.read("Type new file path here: ").strip()
+            new_file_path = input("Type new file path here: ").strip()
             if not new_file_path:
                 raise UserInputError("File path must not be empty!")
-            new_file_name = self.io.read(
+            new_file_name = input(
                 "Type new file name here (leave empty for default name): ").strip()
             self.change_file_path(new_file_path, new_file_name)
         elif choice == 'e':
             export_to_bibtex(self.manager)
         elif choice == 'r':
-            remove_key = self.io.read(
+            remove_key = input(
                 "Type the name of the reference to remove: ").strip()
             success = self.manager.remove(remove_key)
             if success:
-                self.io.write(f"Removed reference with name: {remove_key}")
+                print(f"Removed reference with name: {remove_key}")
             else:
-                self.io.write(f"Reference with name '{remove_key}' not found")
+                print(f"Reference with name '{remove_key}' not found")
         elif choice == 's':
             found_references = self.manager_search()
-            self.io.write(self.create_all_tables(found_references))
+            print(self.create_all_tables(found_references))
         elif choice == 'q':
             return -1
         else:
-            self.io.write("Invalid input")
-        self.io.write("")
+            print("Invalid input")
+        print("")
 
     def ui_loop(self):
         while True:
@@ -180,7 +177,7 @@ class UI:
             try:
                 result = self.ask_for_input()
             except UserInputError as error:
-                self.io.write(error)
+                print(error)
                 continue
             if result == -1:
                 return -1

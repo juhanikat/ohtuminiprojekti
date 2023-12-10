@@ -5,7 +5,7 @@ from services.file_manager import save_data, load_data
 
 def main():
     manager = load_data()
-    ui = UI(manager, DefaultIO())
+    ui = UI(manager)
 
     ui.ui_loop()
     # after the user has quit the program
