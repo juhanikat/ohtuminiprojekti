@@ -13,6 +13,9 @@ def interact_with_index(robot_inputs):
     # Set the current working directory to the script's directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
+    index_path = os.path.join(script_dir, "..")
+    index_path = os.path.abspath(index_path)
+    os.chdir(index_path)
 
     process = subprocess.Popen(['python', 'index.py'],
                                stdin=subprocess.PIPE,
