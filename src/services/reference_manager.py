@@ -103,7 +103,7 @@ class ReferenceManager:
         Search references using multiple fields.
 
         Parameters:
-            fields (dict): Key, value pair to search for.
+            fields (dict): Key, value pairs to search for.
             exact_match (bool, optional): Match values exactly
         Returns:
             list: All matching references (empty if no matches).

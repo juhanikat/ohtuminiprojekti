@@ -30,7 +30,7 @@ def create_entry(manager=None):
     enter_optional_fields(fields)
 
     citation_key = create_citation_key(fields, manager)
-    if citation_key is False:
+    if not citation_key:
         return False
 
     print("Reference created!")

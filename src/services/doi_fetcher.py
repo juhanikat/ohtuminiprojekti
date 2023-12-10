@@ -3,6 +3,7 @@ from services.entry_writer import create_citation_key
 from services.validifier import validate_data
 from resources.bibtex_data import REQUIRED_FIELDS
 
+
 def create_entry_by_doi(manager=None):
     """
     Attempts to retrieve data based on user input.
@@ -28,7 +29,8 @@ def create_entry_by_doi(manager=None):
     print("Reference created using digital object identifier!")
     return citation_key, fields
 
-def fetch_data ():
+
+def fetch_data():
     """
     Prompts an input from the user to fetch an entry based on DOI
     Allocates it inside of dict["entry_type"], if entry_type is valid
@@ -40,13 +42,13 @@ def fetch_data ():
 
     while True:
         doi = input("Input Digital Identifier of an Object " +
-                           "(Enter empty to abort): ").strip()
+                    "(Enter empty to abort): ").strip()
         if not doi:
             return False
 
         data = retrieve_data_from_database(doi)
 
-        #for key, value in data.items():
+        # for key, value in data.items():
         #    print(f"{key}: {value}")
 
         if not data:
@@ -59,27 +61,29 @@ def fetch_data ():
 
     return data
 
-def retrieve_data_from_database (doi):
+
+def retrieve_data_from_database(doi):
     """
     Retrieves data from database using DOI
     Prints errors in case of failure
-    
+
     Returns:
         False, if a failure
         data : dict, if success
     """
     cr = Crossref()
     try:
-        data = cr.works(ids = doi)
+        data = cr.works(ids=doi)
         return data['message']
     except Exception as e:
-        print ("Error occurred: ",e)
+        print("Error occurred: ", e)
         return False
 
-def convert_data (data):
+
+def convert_data(data):
     """
     Converts retrieved data from database.
-    
+
     Returns:
         fields : dict, not validated
     """
@@ -98,7 +102,8 @@ def convert_data (data):
 
     return entry
 
-def parse_field (field, fields, entry_type, data):
+
+def parse_field(field, fields, entry_type, data):
     """
     Parses fields from data to the entry.
     """

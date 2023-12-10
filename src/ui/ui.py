@@ -117,15 +117,23 @@ class UI:
         search_dict = {}
 
         while True:
+            if search_dict:
+                current_search = [
+                    key + ':' + value for (key, value) in search_dict.items()]
+                print(f"Currently searching for: {', '.join(current_search)}")
             field = input(
-                "Enter a field to search in (leave empty to start search): ")
+                "Enter a field to search in (leave empty to start search): ").strip()
             if field == "":
                 break
             if field not in possible_fields:
                 print(f"No references with a value for '{field}'")
                 continue
-            value = input(f"Enter value for '{field}': ")
+            value = input(f"Enter value for '{field}': ").strip()
+            if not value:
+                print("Value must not be empty!")
+                continue
             search_dict[field] = value
+            print("")
 
         return self.manager.search(search_dict)
 
@@ -137,7 +145,7 @@ class UI:
             "Input r to remove a reference\n"
             "Input e to export references as a .bib file\n"
             "Input s to search references\n"
-            "Input q to exit\n").strip().lower()
+            "Input q to exit and save references to file\n").strip().lower()
 
         if choice == 'a':
             self.new_entry()
@@ -164,6 +172,8 @@ class UI:
         elif choice == 'r':
             remove_key = input(
                 "Type the name of the reference to remove: ").strip()
+            if not remove_key:
+                raise UserInputError("Name must not be empty!")
             success = self.manager.remove(remove_key)
             if success:
                 print(f"Removed reference with name: {remove_key}")
@@ -172,6 +182,8 @@ class UI:
 
         elif choice == 's':
             found_references = self.manager_search()
+            if not found_references:
+                print("No references found")
             print(self.create_all_tables(found_references))
 
         elif choice == 'q':
