@@ -1,8 +1,6 @@
 *.tmp
 __pycache__/
 .pytest_cache/
-__pyache__/
-.pytest_cache/
 .coverage
 htmlcov/
 .vscode/
