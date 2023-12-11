@@ -11,13 +11,6 @@ class TestUi(unittest.TestCase):
         self.manager = ReferenceManager()
         self.ui = UI(self.manager)
 
-    def test_listing_references(self):
-        result = self.ui.list_all_references()
-        self.assertEqual(len(result), 0)
-        self.manager.add(Reference("testing"))
-        result = self.ui.list_all_references()
-        self.assertIn("testing", result)
-
     @patch("builtins.print")
     @patch("ui.ui.input", create=True)
     def test_listing_empty(self, mock_input, mock_print):

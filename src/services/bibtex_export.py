@@ -9,9 +9,8 @@ from services.reference_manager import ReferenceManager
 # Pybtex Docs: https://pybtex.org/
 
 
-
 def export_to_bibtex(reference_manager: ReferenceManager,
-                     file_path: str = None, file_name: str = None,
+                     file_path: str = "", file_name: str = "",
                      overwrite: bool = False):
     """
     Create a new BibTeX file from a ReferenceManager.
@@ -32,10 +31,10 @@ def export_to_bibtex(reference_manager: ReferenceManager,
     Returns:
         str: Path to created file
     """
-    if file_name is None:
+    if not file_name:
         file_name = "bibtex_export"
 
-    if file_path is None:
+    if not file_path:
         file_path = "./exports/"
 
     data = create_bibtex_string(reference_manager)

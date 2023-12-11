@@ -9,6 +9,7 @@ from services.reference_manager import ReferenceManager
 
 
 class UserInputError(Exception):
+    """Raised when the user inputs something incorrect"""
     pass
 
 
@@ -16,23 +17,7 @@ class UI:
     def __init__(self, manager: ReferenceManager):
         self.manager = manager
 
-    def change_file_path(self, new_file_path: str, new_file_name: str = None):
-        '''
-        Changes the file_path variable of the reference manager.
-
-        Parameters:
-        manager: A ReferenceManager object.
-        new_file_path: The path of the new file location.
-        new_file_name: The new file name.
-
-        Returns:
-        None
-
-
-        '''
-        self.manager.file_path = get_full_path(new_file_path, new_file_name)
-
-    def create_type_table(self, type, references):
+    def create_type_table(self, type: str, references: list) -> str:
         """
         Creates an AsciiTable containing all inputted references of a specific type.
 
@@ -45,31 +30,39 @@ class UI:
         """
         required_fields = REQUIRED_FIELDS[type]
         max_cell_length = 30
+        max_extra_fields = 3
 
         table = []
         heading = ["name"] + required_fields + ["extra fields"]
         table.append(heading)
         for reference in references:
+            # limits cell content to length specified in max_cell_length
             new_row = [reference.name[:max_cell_length - 3] + "..."
                        if len(reference.name) > max_cell_length else reference.name]
-            fields = reference.get_fields_as_dict()
 
+            fields = reference.get_fields_as_dict()
             for field in required_fields:
-                cell_content = str(fields[field])[:max_cell_length - 3] + "..." if len(
-                    str(fields[field])) > max_cell_length else str(fields[field])
+                cell_content = str(fields[field])
+                # limits cell content to length specified in max_cell_length
+                if len(cell_content) > max_cell_length:
+                    cell_content = cell_content[:max_cell_length - 3] + "..."
                 new_row.append(cell_content)
+
             extra_fields = [
                 key for key in fields if key not in required_fields and key != "entry_type"]
-            if len(extra_fields) > 3:
-                extra_fields = extra_fields[:3]
+            # limits the amount of extra fields to number specified in max_extra_fields
+            if len(extra_fields) > max_extra_fields:
+                extra_fields = extra_fields[:max_extra_fields]
                 extra_fields.append("...")
+
             new_row.append(", ".join(extra_fields))
+            # adds new_row to the table
             table.append(new_row)
 
         table = AsciiTable(table, type)
         return "\n" + table.table
 
-    def create_all_tables(self, references=None):
+    def create_all_tables(self, references: list = []):
         """
         Uses create_type_table() to create a table for every type of reference. Doesn't create a table if no references of that type exist.
 
@@ -81,7 +74,7 @@ class UI:
         """
         big_table = ""
         for type in REQUIRED_FIELDS:
-            if references is None:
+            if not references:
                 references_of_type = self.manager.find_by_attribute(
                     "entry_type", type)
             else:
@@ -94,13 +87,6 @@ class UI:
                 big_table += subtable + "\n"
 
         return big_table
-
-    def list_all_references(self) -> str:
-        references = self.manager.get_all_references()
-        result = ""
-        for reference in references:
-            result += reference.__str__() + "\n"
-        return result
 
     def new_entry(self):
         entry = create_entry(self.manager)
@@ -124,9 +110,11 @@ class UI:
 
         while True:
             if search_dict:
+                # prints out what you are currently searching for
                 current_search = [
                     key + ':' + value for (key, value) in search_dict.items()]
                 print(f"Currently searching for: {', '.join(current_search)}")
+
             field = input(
                 "Enter a field to search in (leave empty to start search): ").strip()
             if field == "":
@@ -134,10 +122,12 @@ class UI:
             if field not in possible_fields:
                 print(f"No references with a value for '{field}'")
                 continue
+
             value = input(f"Enter value for '{field}': ").strip()
             if not value:
                 print("Value must not be empty!")
                 continue
+
             search_dict[field] = value
             print("")
 
@@ -162,14 +152,6 @@ class UI:
         elif choice == 'l':
             # prints all saved references as a table
             print(self.create_all_tables())
-
-        elif choice == 'f':
-            new_file_path = input("Type new file path here: ").strip()
-            if not new_file_path:
-                raise UserInputError("File path must not be empty!")
-            new_file_name = input(
-                "Type new file name here (leave empty for default name): ").strip()
-            self.change_file_path(new_file_path, new_file_name)
 
         elif choice == 'e':
             export_to_bibtex(self.manager)
