@@ -93,7 +93,8 @@ class ReferenceManager:
                 lambda ref: field in ref.fields.keys(), self.references):
             if ref.fields[field] == value:
                 matches.append(ref)
-            elif ref.fields[field].lower().find(value.lower()) != -1 and not exact_match:
+            elif ref.fields[field].lower().find(value.lower()) != -1 \
+                and not exact_match:
                 matches.append(ref)
 
         return matches
