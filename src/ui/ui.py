@@ -44,7 +44,7 @@ class UI:
             The table as a string.
         """
         required_fields = REQUIRED_FIELDS[type]
-        max_cell_length = 20
+        max_cell_length = 30
 
         table = []
         heading = ["name"] + required_fields + ["extra fields"]
