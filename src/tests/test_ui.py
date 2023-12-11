@@ -50,7 +50,7 @@ class TestUi(unittest.TestCase):
 
         result = self.ui.create_type_table('book', [reference1])
 
-        self.assertIn("Ian Goodfellow, Y...", result)
+        self.assertIn("Ian Goodfellow, Yoshua Beng...", result)
 
     def test_create_all_tables(self):
         references = [
