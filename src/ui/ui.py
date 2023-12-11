@@ -141,7 +141,7 @@ class UI:
             "Input r to remove a reference\n"
             "Input e to export references as a .bib file\n"
             "Input s to search references\n"
-            "Input q to exit and save references to file\n").strip().lower()
+            "Input q to exit and save references to file\n>").strip().lower()
 
         if choice == 'a':
             self.new_entry()
