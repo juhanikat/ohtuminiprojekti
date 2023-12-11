@@ -50,17 +50,17 @@ At the start of execution, the program automatically loads the data from the dat
 When the program is running, you can use it via terminal UI.
 The use options are the following:
 - Input a to add a new reference
- - The program asks for inputs for the reference and saves it in the reference manager
+     - The program asks for inputs for the reference and saves it in the reference manager
 - Input l to view references
- - The program prints all references in the reference manager
+     - The program prints all references in the reference manager
 - Input r to remove a reference
- - The program deletes a reference from the reference manager
+     - The program deletes a reference from the reference manager
 - Input e to export references
- - The program exports all references in the reference manager to a Bibtex file
+     - The program exports all references in the reference manager to a BibTeX file
 - Input s to search references
- - User can input various parameters to limit the viewed references
+     - User can input various parameters to limit the viewed references
 - Input q to quit the program
- - The program saves the reference manager to the data.json file and quits.
+     - The program saves the reference manager to data.json and quits.
 
 
 ## Backlog
