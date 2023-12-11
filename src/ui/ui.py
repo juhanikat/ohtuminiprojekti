@@ -44,15 +44,20 @@ class UI:
             The table as a string.
         """
         required_fields = REQUIRED_FIELDS[type]
+        max_cell_length = 20
 
         table = []
         heading = ["name"] + required_fields + ["extra fields"]
         table.append(heading)
         for reference in references:
-            new_row = [reference.name]
+            new_row = [reference.name[:max_cell_length - 3] + "..."
+                       if len(reference.name) > max_cell_length else reference.name]
             fields = reference.get_fields_as_dict()
+
             for field in required_fields:
-                new_row.append(fields[field])
+                cell_content = str(fields[field])[:max_cell_length - 3] + "..." if len(
+                    str(fields[field])) > max_cell_length else str(fields[field])
+                new_row.append(cell_content)
             extra_fields = [
                 key for key in fields if key not in required_fields and key != "entry_type"]
             if len(extra_fields) > 3:

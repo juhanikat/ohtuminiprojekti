@@ -43,12 +43,21 @@ class TestUi(unittest.TestCase):
         self.assertIn("book", result)
         self.assertNotIn("article", result)
 
+    def test_create_type_table_max_length(self):
+        reference1 = Reference("book", {"title": "title1", "year": 2023,
+                                        "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+                                        "publisher": "publisher1"})
+
+        result = self.ui.create_type_table('book', [reference1])
+
+        self.assertIn("Ian Goodfellow, Y...", result)
+
     def test_create_all_tables(self):
         references = [
             Reference("book", {"entry_type": "book",
-                      "author": "author", "title": "title"}),
+                               "author": "author", "title": "title"}),
             Reference("article", {"entry_type": "article",
-                      "author": "author", "title": "title"})
+                                  "author": "author", "title": "title"})
         ]
         # self.manager.add(references[0])
         # self.assertEqual("book", references[0].get_type())
