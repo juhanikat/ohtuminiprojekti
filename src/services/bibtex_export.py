@@ -1,21 +1,24 @@
 import os
+
 from pybtex.database import BibliographyData, Entry
-# Docs: https://pybtex.org/
-from services.reference_manager import ReferenceManager
-from services.path import get_full_path
+
 from entities.reference import Reference
+from services.path import get_full_path
+from services.reference_manager import ReferenceManager
+
+# Pybtex Docs: https://pybtex.org/
 
 
 def export_to_bibtex(reference_manager: ReferenceManager,
-                     file_path: str = None, file_name: str = None,
+                     file_path: str = "", file_name: str = "",
                      overwrite: bool = False):
     """
     Create a new BibTeX file from a ReferenceManager.
-    By defualt, new files are created in './exports/'
+    By default, new files are created in './exports/'
     and the file name is 'bibtex_export.bib'.
 
     Parameters:
-        reference_manager (ReferenceManager): The refrence manager to
+        reference_manager (ReferenceManager): The reference manager to
         export from.
         file_path (str, optional): The path where the file is created.
         Default is './exports/'.
@@ -28,11 +31,12 @@ def export_to_bibtex(reference_manager: ReferenceManager,
     Returns:
         str: Path to created file
     """
-    if file_name is None:
+
+    if not file_name:
         file_name = "bibtex_export"
 
-    if file_path is None:
-        file_path = "./exports/"
+    if not file_path:
+        file_path = "./../exports/"
 
     data = create_bibtex_string(reference_manager)
 
@@ -60,7 +64,7 @@ def create_bibtex_string(reference_manager: ReferenceManager):
 
     Parameters:
         reference_manager (RerefenceManager): The reference manager to convert.
-    
+
     Returns:
         str: References as a BibTex formatted string.
     """

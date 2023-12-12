@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
-from bibtex_utils import ask_fields, get_reference_type
+
+from services.bibtex_utils import ask_fields, get_reference_type
 
 
 class TestReferenceFields(unittest.TestCase):

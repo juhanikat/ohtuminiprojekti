@@ -1,8 +1,6 @@
 *.tmp
 __pycache__/
 .pytest_cache/
-__pyache__/
-.pytest_cache/
 .coverage
 htmlcov/
 .vscode/
@@ -10,4 +8,4 @@ poetry.lock
 log.html
 output.xml
 report.html
-exports/*
+**/bibtex_export*

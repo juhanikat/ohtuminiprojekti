@@ -29,7 +29,7 @@ def generate_citation(fields, manager=None):
         return False
 
     required_fields = REQUIRED_FIELDS[entry][:2]
-    suggestion_parts = [fields.get(field, "") for field in required_fields]
+    suggestion_parts = [str(fields.get(field, "")) for field in required_fields]
     suggestion = "-".join(suggestion_parts)
     suggestion = suggestion.replace(" ", "_")
 
