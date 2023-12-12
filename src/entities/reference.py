@@ -16,6 +16,9 @@ class Reference:
     def get_fields_as_tuples(self):
         return [(key, value)
                 for key, value in self.fields.items() if key != "entry_type"]
+    
+    def remove_field(self, key: str):
+        return self.fields.pop(key, None)
 
     def __str__(self):
         key_value_pairs = [key.capitalize() + ': ' + self.fields[key]
