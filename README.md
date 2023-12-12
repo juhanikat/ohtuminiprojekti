@@ -89,3 +89,7 @@ Results of retrospectives can be found in the [retro.md](https://github.com/juha
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/juhanikat/ohtuminiprojekti/blob/main/LICENSE.md)
+
+## Final Report
+
+Final report can be found here: https://docs.google.com/document/d/10RyUnW48cSrjnNHImfXvpRZsE8eLRd8iAOwUgEvMtjI/edit
