@@ -49,9 +49,6 @@ def fetch_data():
 
         data = retrieve_data_from_database(doi)
 
-        # for key, value in data.items():
-        #    print(f"{key}: {value}")
-
         if not data:
             continue
 
@@ -89,6 +86,7 @@ def convert_data(data):
         fields : dict, not validated
     """
     entry_type = data.get('type', '').lower()
+    entry_type = convert_entry_type(entry_type)
     entry = {"entry_type": entry_type}
 
     if entry_type in REQUIRED_FIELDS:
@@ -97,38 +95,63 @@ def convert_data(data):
         for field in required_fields:
             parse_field(field, entry, entry_type, data)
 
-    for key in entry:
-        if entry[key] is not None:
-            entry[key] = str(entry[key])
+    for key, value in entry.items():
+        if value is not None:
+            entry[key] = str(value)
 
     return entry
 
+def convert_entry_type(entry_type):
+    if entry_type == "journal-article":
+        entry_type = "article"
+    return entry_type
+
+
+def parse_title(data):
+    """
+    Extracts the title from data, handling both string and list formats.
+    """
+    title = data.get('title', '')
+    return title[0] if isinstance(title, list) and title else title
+
+def parse_year(data):
+    """
+    Extracts the publication year from data.
+    """
+    year = data.get('issued', {}).get('date-parts', [[None]])[0][0]
+    return year if year is not None else None
+
+def parse_author(data, entry_type):
+    """
+    Extracts authors, formatted as a string, from data.
+    """
+    authors = (data.get('editor', []) if entry_type == 'book' and
+               'author' not in data else data.get('author', []))
+    return ', '.join([f"{a['given']} {a['family']}" for a in authors])
+
+def parse_pages(data):
+    """
+    Extracts page numbers from data, handling various formats.
+    """
+    pages = data.get('page', '')
+    if pages and '-' in pages:
+        first = pages.split('-')[0]
+        return first if first.isdigit() else first
+    return pages if pages.isdigit() else pages
 
 def parse_field(field, fields, entry_type, data):
     """
-    Parses fields from data to the entry.
+    Parses and updates fields from data.
     """
-    if field in ['publisher', 'chapter', 'school', 'institution', 'note']:
+    field_parsers = {
+        'title': parse_title,
+        'year': parse_year,
+        'author': lambda d: parse_author(d, entry_type),
+        'pages': parse_pages,
+    }
+
+    if field in field_parsers:
+        fields[field] = field_parsers[field](data)
+    elif field in ['publisher', 'chapter', 'school', 'institution',
+                   'note', 'journal', 'booktitle']:
         fields[field] = data.get(field, '')
-    elif field == 'title':
-        fields[field] = data.get('title', [''])[0]
-    elif field == 'year':
-        year = data.get('issued', {}).get('date-parts', [[None]])[0][0]
-        fields[field] = year if year is not None else None
-    elif field == 'author':
-        if entry_type == 'book' and 'author' not in data:
-            authors = data.get('editor', [])
-        else:
-            authors = data.get('author', [])
-        fields[field] = ', '.join([f"{author['given']} {author['family']}"
-                                  for author in authors])
-    elif field in ('journal', 'booktitle'):
-        if field in data:
-            fields[field] = data[field]
-    elif field == 'pages':
-        pages = data.get('page', '')
-        if pages and '-' in pages:
-            first = pages.split('-')[0]
-            fields[field] = first if first.isdigit() else first
-        else:
-            fields[field] = pages if pages.isdigit() else pages

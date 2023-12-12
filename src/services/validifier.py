@@ -38,10 +38,22 @@ def validate_data (data):
         False, if aborting process
         data: dict, if data retrieved successfully
     """
+    entry_type = data.get('entry_type', '').lower()
+
+    required_fields = REQUIRED_FIELDS.get(entry_type, [])
+    for field in required_fields:
+        if field not in data:
+            print(f"Missing required field: {field}")
+            return False
+        if not validate_input(field, data[field]):
+            print(f"Invalid data for field: {field}")
+            return False
+
     for key, value in data.items():
         if not validate_input(key, value):
             print("Invalid data!")
             return False
+
     return True
 
 
