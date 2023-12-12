@@ -146,7 +146,7 @@ FIELD_VALIDATORS = {
     "publisher": [validate_no_whitespace, validate_no_empty],
     "booktitle": [validate_no_whitespace, validate_no_empty],
     "chapter": [validate_no_whitespace, validate_no_empty],
-    "pages": validate_as_positive_integer,
+    "pages": [validate_no_whitespace, validate_no_empty],
     "school": [validate_no_whitespace, validate_no_empty],
     "note": [validate_no_whitespace, validate_no_empty],
 }

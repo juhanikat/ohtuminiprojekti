@@ -6,6 +6,7 @@ from services.doi_fetcher import create_entry_by_doi
 from services.entry_writer import create_entry
 from services.path import get_full_path
 from services.reference_manager import ReferenceManager
+from services.validifier import validate_data
 
 
 class UserInputError(Exception):
@@ -149,7 +150,10 @@ class UI:
                 fields_dict = ref.get_fields_as_dict()
                 key = input("Type key of field to edit (leave empty to finish): ")
                 if key == "":
-                    break
+                    if validate_data(self.manager.find_by_name(name).get_fields_as_dict()):
+                        break
+                    print("!!! Cannot save reference, some data is invalid !!!")
+                    continue
                     
                 value = fields_dict.get(key, None)
 
@@ -169,9 +173,8 @@ class UI:
                     else:
                         print("This field is required!")
                         continue
+
                 self.manager.edit(name, key, new_value, remove)
-            
-            
 
 
     def ask_for_input(self):
