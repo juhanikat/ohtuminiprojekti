@@ -199,7 +199,7 @@ class UI:
             print(self.create_all_tables(found_references))
 
         elif choice == 'e':
-            self.manager_edit(self)
+            self.manager_edit()
 
         elif choice == 'q':
             return -1
