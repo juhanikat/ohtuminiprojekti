@@ -6,7 +6,7 @@ Test Program Output
     ${output}=    Run    python ./src/resources/interact_with_index.py
     Should Contain    ${output}    Input a to add a new reference
     Should Contain    ${output}    Input l to list all references
-    Should Contain    ${output}    Input e to export references as a .bib file
+    Should Contain    ${output}    Input x to export references as a .bib file
     Should Contain    ${output}    Input q to exit
 
 Test Program Output with bad text
