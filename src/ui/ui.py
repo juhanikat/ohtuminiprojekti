@@ -135,24 +135,24 @@ class UI:
     
     def manager_edit(self):
         while True:
-            name = self.io.read("Type name of reference to edit: ")
+            name = input("Type name of reference to edit: ")
             ref = self.manager.find_by_name(name)
             if ref is not None:
                 break
-            self.io.write(f"'{name}' not found!")
+            print(f"'{name}' not found!")
 
         while True:
-            self.io.write(self.create_type_table(ref.get_type(), [ref]))
+            print(self.create_type_table(ref.get_type(), [ref]))
             fields_dict = ref.get_fields_as_dict()
-            key = self.io.read("Type key of field to edit (leave empty to finish): ")
+            key = input("Type key of field to edit (leave empty to finish): ")
             if key == "":
                 break
             value = fields_dict.get(key, None)
             if value is None:
-                self.io.write(f"'{key}' not found!")
+                print(f"'{key}' not found!")
                 continue
-            self.io.write(f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
-            new_value = self.io.read(f"Enter new value for '{key}': ")
+            print(f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
+            new_value = input(f"Enter new value for '{key}': ")
             self.manager.edit(name, key, new_value)
 
 
@@ -177,7 +177,7 @@ class UI:
             # prints all saved references as a table
             print(self.create_all_tables())
 
-        elif choice == 'e':
+        elif choice == 'x':
             export_to_bibtex(self.manager)
             print("Exported!")
 
@@ -197,6 +197,9 @@ class UI:
             if not found_references:
                 print("No references found")
             print(self.create_all_tables(found_references))
+
+        elif choice == 'e':
+            self.manager_edit(self)
 
         elif choice == 'q':
             return -1
