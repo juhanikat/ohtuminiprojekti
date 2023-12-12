@@ -135,7 +135,9 @@ class UI:
     
     def manager_edit(self):
         while True:
-            name = input("Type name of reference to edit: ")
+            name = input("Type name of reference to edit (leave empty to stop editing): ")
+            if name == "":
+                return
             ref = self.manager.find_by_name(name)
             if ref is not None:
                 break
@@ -146,11 +148,15 @@ class UI:
             fields_dict = ref.get_fields_as_dict()
             key = input("Type key of field to edit (leave empty to finish): ")
             if key == "":
-                break
+                return
+                
             value = fields_dict.get(key, None)
+
             if value is None:
-                print(f"'{key}' not found!")
-                continue
+                add_optional = input(f"'{key}' does not exists, add it as an optional field? (y/n): ").strip()
+                if add_optional == "y":
+                    self.manager.edit(name, key, "")
+
             print(f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
             new_value = input(f"Enter new value for '{key}': ")
             self.manager.edit(name, key, new_value)
@@ -178,7 +184,7 @@ class UI:
             print(self.create_all_tables())
 
         elif choice == 'x':
-            export_to_bibtex(self.manager)
+            export_to_bibtex(self.manager, overwrite=True)
             print("Exported!")
 
         elif choice == 'r':
@@ -199,7 +205,7 @@ class UI:
             print(self.create_all_tables(found_references))
 
         elif choice == 'e':
-            self.manager_edit(self)
+            self.manager_edit()
 
         elif choice == 'q':
             return -1
