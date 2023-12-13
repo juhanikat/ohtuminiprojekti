@@ -78,3 +78,39 @@ Test Remove With Reference And Wrong Key
     Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
     Should Contain    ${output}    Type the name of the reference to remove:
     Should Contain    ${output}    Reference with name 'wrong_key' not found
+
+Test Output Edit
+     ${output}=    Run    python ./src/resources/interact_with_index.py e
+     Should Contain    ${output}    Type name of reference to edit (leave empty to stop editing):
+
+Test Edit Nonexistent Reference
+    ${output}=    Run    python ./src/resources/interact_with_index.py e nonexistent
+    Should Contain    ${output}    'nonexistent' not found!
+
+Test Edit Reference
+    ${output}=    Run    python ./src/resources/interact_with_index.py a article title 2023 author journal "" test_key e test_key author new_author
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Enter value for author (Enter empty to abort):
+    Should Contain    ${output}    Enter value for journal (Enter empty to abort):
+    Should Contain    ${output}    Enter optional field name (Leave empty to finish):
+    Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
+    Should Contain    ${output}    Type name of reference to edit (leave empty to stop editing):
+    Should Contain    ${output}    Type key of field to edit (leave empty to finish):
+    Should Contain    ${output}    Current field: 'author'
+    Should Contain    ${output}    Current value: author
+    Should Contain    ${output}    Enter new value for 'author' (leave empty to delete optional field):
+
+Test Edit Adding Optional Field
+    ${output}=    Run    python ./src/resources/interact_with_index.py a article title 2023 author journal "" test_key e test_key new_field
+    Should Contain    ${output}    Choose the entry type (Enter empty to abort):
+    Should Contain    ${output}    Enter value for title (Enter empty to abort):
+    Should Contain    ${output}    Enter value for year (Enter empty to abort):
+    Should Contain    ${output}    Enter value for author (Enter empty to abort):
+    Should Contain    ${output}    Enter value for journal (Enter empty to abort):
+    Should Contain    ${output}    Enter optional field name (Leave empty to finish):
+    Should Contain    ${output}    Enter the citation key, or press Enter to use the suggestion:
+    Should Contain    ${output}    Type name of reference to edit (leave empty to stop editing):
+    Should Contain    ${output}    Type key of field to edit (leave empty to finish):
+    Should Contain    ${output}    'new_field' does not exists, add it as an optional field? (y/n):
