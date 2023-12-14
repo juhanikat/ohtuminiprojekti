@@ -1,6 +1,6 @@
 class Reference:
-    def __init__(self, name: str, fields: dict = {}):
-        if not fields:
+    def __init__(self, name: str, fields: dict = None):
+        if fields is None:
             fields = {}
         self.name = name
         self.fields = fields
