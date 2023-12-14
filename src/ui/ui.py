@@ -6,6 +6,7 @@ from services.doi_fetcher import create_entry_by_doi
 from services.entry_writer import create_entry
 from services.path import get_full_path
 from services.reference_manager import ReferenceManager
+from services.validifier import validate_data
 
 
 class UserInputError(Exception):
@@ -76,7 +77,7 @@ class UI:
         for type in REQUIRED_FIELDS:
             if not references:
                 references_of_type = self.manager.find_by_attribute(
-                    "entry_type", type)
+                    "entry_type", type, True)
             else:
                 references_of_type = [
                     ref for ref in references if ref.get_type() == type]
@@ -132,6 +133,49 @@ class UI:
             print("")
 
         return self.manager.search(search_dict)
+    
+    def manager_edit(self):
+        while True:
+            print(self.create_all_tables())
+            name = input("Type name of reference to edit (leave empty to stop editing): ")
+            if name == "":
+                return
+            ref = self.manager.find_by_name(name)
+            if ref is None:
+                print(f"'{name}' not found!")
+                continue
+            
+            while True:
+                print(self.create_type_table(ref.get_type(), [ref]))
+                fields_dict = ref.get_fields_as_dict()
+                key = input("Type key of field to edit (leave empty to finish): ")
+                if key == "":
+                    if validate_data(self.manager.find_by_name(name).get_fields_as_dict()):
+                        break
+                    print("!!! Cannot save reference, some data is invalid !!!")
+                    continue
+                    
+                value = fields_dict.get(key, None)
+
+                if value is None:
+                    add_optional = input(f"'{key}' does not exists, add it as an optional field? (y/n): ").strip()
+                    if add_optional == "y":
+                        self.manager.edit(name, key, "")
+                    else:
+                        continue
+
+                print(f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
+                new_value = input(f"Enter new value for '{key}' (leave empty to delete optional field): ")
+                remove = False
+                if new_value == "":
+                    if key not in REQUIRED_FIELDS[ref.get_type()]:
+                        remove = True
+                    else:
+                        print("This field is required!")
+                        continue
+
+                self.manager.edit(name, key, new_value, remove)
+
 
     def ask_for_input(self):
         choice = input(
@@ -139,7 +183,8 @@ class UI:
             "Input g to get a new reference using DOI\n"
             "Input l to list all references\n"
             "Input r to remove a reference\n"
-            "Input e to export references as a .bib file\n"
+            "Input e to edit a reference\n"
+            "Input x to export references as a .bib file\n"
             "Input s to search references\n"
             "Input q to exit and save references to file\n>").strip().lower()
 
@@ -153,8 +198,8 @@ class UI:
             # prints all saved references as a table
             print(self.create_all_tables())
 
-        elif choice == 'e':
-            export_to_bibtex(self.manager)
+        elif choice == 'x':
+            export_to_bibtex(self.manager, overwrite=True)
             print("Exported!")
 
         elif choice == 'r':
@@ -173,6 +218,9 @@ class UI:
             if not found_references:
                 print("No references found")
             print(self.create_all_tables(found_references))
+
+        elif choice == 'e':
+            self.manager_edit()
 
         elif choice == 'q':
             return -1
