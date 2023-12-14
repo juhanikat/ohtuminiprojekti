@@ -9,20 +9,22 @@ from services.bibtex_export import (create_bib_data, create_bibtex_string,
 
 
 class TestBibTeXExport(unittest.TestCase):
-    def setUp(self): 
+    def setUp(self):
         self.reference = Mock()
         self.reference.name = "ref1"
         self.reference.get_type.return_value = "article"
-        self.reference.get_fields_as_tuples.return_value = [("author", "John Doe"), ("title", "Sample Title")]
+        self.reference.get_fields_as_tuples.return_value = [
+            ("author", "John Doe"), ("title", "Sample Title")]
 
         self.reference_manager = Mock()
-        self.reference_manager.get_all_references.return_value = [self.reference]
+        self.reference_manager.get_all_references.return_value = [
+            self.reference]
 
     def test_export_to_bibtex(self):
         expected_path = "./exports/bibtex_export.bib"
 
         with patch("builtins.open", mock_open()) as mock_file, \
-             patch("services.bibtex_export.get_full_path", return_value=expected_path):
+                patch("services.bibtex_export.get_full_path", return_value=expected_path):
             path = export_to_bibtex(self.reference_manager)
 
             mock_file.assert_called_with(path, "w", encoding="utf-8")
@@ -39,7 +41,7 @@ class TestBibTeXExport(unittest.TestCase):
         empty_reference_manager.get_all_references.return_value = []
 
         with patch("builtins.open", mock_open()) as mock_file, \
-             patch("services.bibtex_export.get_full_path", return_value=expected_path):
+                patch("services.bibtex_export.get_full_path", return_value=expected_path):
             path = export_to_bibtex(empty_reference_manager)
 
             mock_file.assert_called_with(path, "w", encoding="utf-8")
@@ -50,7 +52,7 @@ class TestBibTeXExport(unittest.TestCase):
         self.assertEqual(expected_path, path)
 
     def test_create_bibtex_string(self):
-        bibtex_string = create_bibtex_string(self.reference_manager)    
+        bibtex_string = create_bibtex_string(self.reference_manager)
 
         self.assertIn("@article{ref1", bibtex_string)
         self.assertIn('author = "John Doe"', bibtex_string)
