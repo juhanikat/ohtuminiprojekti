@@ -90,6 +90,12 @@ class UI:
         return big_table
 
     def new_entry(self):
+        """
+        Calls create_entry to create a new entry and add it to the reference manager.
+
+        Returns:
+            The entry if one was created, or False otherwise.
+        """
         entry = create_entry(self.manager)
         if entry:
             # creates new Reference object and adds it to the manager
@@ -133,39 +139,44 @@ class UI:
             print("")
 
         return self.manager.search(search_dict)
-    
+
     def manager_edit(self):
         while True:
             print(self.create_all_tables())
-            name = input("Type name of reference to edit (leave empty to stop editing): ")
+            name = input(
+                "Type name of reference to edit (leave empty to stop editing): ")
             if name == "":
                 return
             ref = self.manager.find_by_name(name)
             if ref is None:
                 print(f"'{name}' not found!")
                 continue
-            
+
             while True:
                 print(self.create_type_table(ref.get_type(), [ref]))
                 fields_dict = ref.get_fields_as_dict()
-                key = input("Type key of field to edit (leave empty to finish): ")
+                key = input(
+                    "Type key of field to edit (leave empty to finish): ")
                 if key == "":
                     if validate_data(self.manager.find_by_name(name).get_fields_as_dict()):
                         break
                     print("!!! Cannot save reference, some data is invalid !!!")
                     continue
-                    
+
                 value = fields_dict.get(key, None)
 
                 if value is None:
-                    add_optional = input(f"'{key}' does not exists, add it as an optional field? (y/n): ").strip()
+                    add_optional = input(
+                        f"'{key}' does not exists, add it as an optional field? (y/n): ").strip()
                     if add_optional == "y":
                         self.manager.edit(name, key, "")
                     else:
                         continue
 
-                print(f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
-                new_value = input(f"Enter new value for '{key}' (leave empty to delete optional field): ")
+                print(
+                    f"Current field: '{key}'\nCurrent value: {fields_dict[key]}")
+                new_value = input(
+                    f"Enter new value for '{key}' (leave empty to delete optional field): ")
                 remove = False
                 if new_value == "":
                     if key not in REQUIRED_FIELDS[ref.get_type()]:
@@ -175,7 +186,6 @@ class UI:
                         continue
 
                 self.manager.edit(name, key, new_value, remove)
-
 
     def ask_for_input(self):
         choice = input(
@@ -229,6 +239,11 @@ class UI:
             raise UserInputError("Invalid input")
 
     def ui_loop(self):
+        """The main UI loop. Calls ask_for_input once every loop to ask the user
+        what they want to do.
+
+        Returns:
+            -1 once the user decides to quit the program."""
         while True:
             result = None
             try:
