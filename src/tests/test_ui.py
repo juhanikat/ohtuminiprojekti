@@ -52,8 +52,6 @@ class TestUi(unittest.TestCase):
             Reference("article", {"entry_type": "article",
                                   "author": "author", "title": "title"})
         ]
-        # self.manager.add(references[0])
-        # self.assertEqual("book", references[0].get_type())
 
         for ref in references:
             self.manager.add(ref)
@@ -62,4 +60,40 @@ class TestUi(unittest.TestCase):
             mock_create_type_table.side_effect = ["mocked", "second_mocked"]
             result = self.ui.create_all_tables()
             self.assertIn("mocked", result)
-        # mock_create_type_table.assert_called_with("book", ["title", "year", "author", "publisher"])
+
+    def test_too_many_extra_fields(self):
+        ref_list = [
+            Reference("book", {"author": "author", "title": "title",
+                               "year": 1, "publisher": "publisher",
+                               "extra1": "extra1", "extra2": "extra2",
+                               "extra3": "extra3", "extra4": "extra4"})]
+
+        result = self.ui.create_type_table("book", ref_list)
+        self.assertNotIn("extra4", result)
+        self.assertIn("...", result)
+
+    def test_new_entry(self):
+        with patch("ui.ui.create_entry") as mock_create_entry, \
+                patch("ui.ui.ReferenceManager.new") as mock_new:
+            mock_create_entry.return_value = ("reference key", "fields")
+            mock_new.return_value = "reference object"
+            result = self.ui.new_entry()
+
+            mock_create_entry.assert_called()
+            self.manager.new.assert_called_with("reference key", "fields")
+            self.assertEqual(result, ("reference key", "fields"))
+
+    def test_new_entry_using_doi_with_entry(self):
+        with patch("ui.ui.create_entry_by_doi") as mock_create_entry, \
+                patch("ui.ui.ReferenceManager.new") as mock_new:
+            mock_create_entry.side_effect = [("key", "value"), None]
+            mock_new.return_value = "reference object"
+            result = self.ui.new_entry_using_doi()
+            result2 = self.ui.new_entry_using_doi()
+
+        mock_create_entry.assert_called()
+        mock_new.assert_called_with("key", "value")
+        self.assertEqual(result, ("key", "value"))
+        self.assertEqual(result2, None)
+            
+

@@ -31,11 +31,12 @@ def export_to_bibtex(reference_manager: ReferenceManager,
     Returns:
         str: Path to created file
     """
+
     if not file_name:
         file_name = "bibtex_export"
 
     if not file_path:
-        file_path = "./exports/"
+        file_path = "./../exports/"
 
     data = create_bibtex_string(reference_manager)
 

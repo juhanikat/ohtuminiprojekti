@@ -6,18 +6,21 @@ Group: Fast Fishes
 
 
 # Table of Contents
-1. [Definition of Done](#definition-of-done)
-2. [Installing and Running the Program](#installing-and-running-the-program)
+- [ohtuminiprojekti](#ohtuminiprojekti)
+- [Table of Contents](#table-of-contents)
+  - [Definition of Done:](#definition-of-done)
+  - [Installing and Running the Program](#installing-and-running-the-program)
     - [Download](#download)
     - [Installation](#installation)
     - [Running the Program](#running-the-program)
-3. [Backlog](#backlog)
-4. [Codecov - test coverage](#codecov)
-5. [File Storage and Export Details](#file-storage-and-export-details)
+  - [Backlog](#backlog)
+  - [Codecov](#codecov)
+  - [File Storage and Export Details](#file-storage-and-export-details)
     - [Location of Stored References](#location-of-stored-references)
     - [Exporting References](#exporting-references)
-6. [Retrospective Results](#retrospective-results)
-7. [LICENSE](#license)
+  - [Retrospective Results](#retrospective-results)
+  - [License](#license)
+  - [Final Report](#final-report)
 
 ## Definition of Done:
 - Functionality has been implemented
@@ -62,11 +65,9 @@ The use options are the following:
 - Input q to quit the program
      - The program saves the reference manager to data.json and quits.
 
-
 ## Backlog
 
 [https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing)
-
 
 ## Codecov
 
@@ -90,3 +91,6 @@ Results of retrospectives can be found in the [retro.md](https://github.com/juha
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/juhanikat/ohtuminiprojekti/blob/main/LICENSE.md)
 
+## Final Report
+
+Final report can be found here: https://docs.google.com/document/d/10RyUnW48cSrjnNHImfXvpRZsE8eLRd8iAOwUgEvMtjI/edit
