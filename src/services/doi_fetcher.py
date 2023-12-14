@@ -10,12 +10,12 @@ def create_entry_by_doi(manager=None):
     Attempts to retrieve data based on user input.
 
     Returns:
-        False, if process is aborted
-        citation_key, fields, if process successfully completed
+        False, if process is aborted.
+        citation_key, fields, if process successfully completed.
     """
 
     fields = fetch_data()
-    if fields is False:
+    if not fields:
         return False
 
     print("- Retrieved data -")
@@ -54,7 +54,7 @@ def fetch_data():
 
         data = convert_data(data)
 
-        if data is not False and validate_data(data):
+        if data and validate_data(data):
             break
 
     return data
@@ -73,8 +73,8 @@ def retrieve_data_from_database(doi):
     try:
         data = cr.works(ids=doi)
         return data['message']
-    except Exception as e:
-        print("Error occurred: ", e)
+    except Exception as exc:
+        print("Error occurred: ", exc)
         return False
 
 
@@ -101,6 +101,7 @@ def convert_data(data):
 
     return entry
 
+
 def convert_entry_type(entry_type):
     if entry_type == "journal-article":
         entry_type = "article"
@@ -114,12 +115,14 @@ def parse_title(data):
     title = data.get('title', '')
     return title[0] if isinstance(title, list) and title else title
 
+
 def parse_year(data):
     """
     Extracts the publication year from data.
     """
     year = data.get('issued', {}).get('date-parts', [[None]])[0][0]
     return year if year is not None else None
+
 
 def parse_author(data, entry_type):
     """
@@ -128,6 +131,7 @@ def parse_author(data, entry_type):
     authors = (data.get('editor', []) if entry_type == 'book' and
                'author' not in data else data.get('author', []))
     return ', '.join([f"{a['given']} {a['family']}" for a in authors])
+
 
 def parse_pages(data):
     """
@@ -138,6 +142,7 @@ def parse_pages(data):
         first = pages.split('-')[0]
         return first if first.isdigit() else first
     return pages if pages.isdigit() else pages
+
 
 def parse_field(field, fields, entry_type, data):
     """

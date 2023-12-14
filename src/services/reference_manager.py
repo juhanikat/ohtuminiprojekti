@@ -39,7 +39,8 @@ class ReferenceManager:
         else:
             raise ValueError(f"Reference with name '{name}' already exists")
 
-    def edit(self, name: str, field: str, value: str = None, remove_field: bool = False):
+    def edit(self, name: str, field: str, value: str = None,
+             remove_field: bool = False):
         """
         Edit an attribute in a reference.
 

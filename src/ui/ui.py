@@ -65,7 +65,8 @@ class UI:
 
     def create_all_tables(self, references: list = []):
         """
-        Uses create_type_table() to create a table for every type of reference. Doesn't create a table if no references of that type exist.
+        Uses create_type_table() to create a table for every type of reference. Doesn't create a table if
+        no references of that type exist in the reference manager.
 
         Args:
             references (optional): Use these references instead of the ones in the reference manager.
@@ -103,6 +104,12 @@ class UI:
         return entry
 
     def new_entry_using_doi(self):
+        """
+        Calls create_entry_by_doi to create a new entry and add it to the reference manager.
+
+        Returns:
+            The entry if one was created, or False otherwise.
+        """
         entry = create_entry_by_doi(self.manager)
         if entry:
             # creates new Reference object using doi and adds it to the manager
@@ -188,6 +195,15 @@ class UI:
                 self.manager.edit(name, key, new_value, remove)
 
     def ask_for_input(self):
+        """
+        Asks the user for input and does things based on it.
+
+        Raises:
+            UserInputError: Raised if the user types in something invalid.
+
+        Returns:
+            -1, if the user types in 'q' to exit the program.
+        """
         choice = input(
             "Input a to add a new reference\n"
             "Input g to get a new reference using DOI\n"
@@ -233,9 +249,11 @@ class UI:
             self.manager_edit()
 
         elif choice == 'q':
+            # user exits the program
             return -1
 
         else:
+            # if user selected something else
             raise UserInputError("Invalid input")
 
     def ui_loop(self):
