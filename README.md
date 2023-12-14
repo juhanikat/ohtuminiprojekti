@@ -6,18 +6,21 @@ Group: Fast Fishes
 
 
 # Table of Contents
-1. [Definition of Done](#definition-of-done)
-2. [Installing and Running the Program](#installing-and-running-the-program)
+- [ohtuminiprojekti](#ohtuminiprojekti)
+- [Table of Contents](#table-of-contents)
+  - [Definition of Done:](#definition-of-done)
+  - [Installing and Running the Program](#installing-and-running-the-program)
     - [Download](#download)
     - [Installation](#installation)
     - [Running the Program](#running-the-program)
-3. [Backlog](#backlog)
-4. [Codecov - test coverage](#codecov)
-5. [File Storage and Export Details](#file-storage-and-export-details)
+  - [Backlog](#backlog)
+  - [Codecov](#codecov)
+  - [File Storage and Export Details](#file-storage-and-export-details)
     - [Location of Stored References](#location-of-stored-references)
     - [Exporting References](#exporting-references)
-6. [Retrospective Results](#retrospective-results)
-7. [LICENSE](#license)
+  - [Retrospective Results](#retrospective-results)
+  - [License](#license)
+  - [Final Report](#final-report)
 
 ## Definition of Done:
 - Functionality has been implemented
@@ -62,11 +65,9 @@ The use options are the following:
 - Input q to quit the program
      - The program saves the reference manager to data.json and quits.
 
-
 ## Backlog
 
 [https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1t6cWLe60YoNf533Mlu33QweL5PVB-RmYKTP6vHFyb5Q/edit?usp=sharing)
-
 
 ## Codecov
 
@@ -85,7 +86,6 @@ Exported BibTeX files are stored in the following directory: src/exports/bibtex_
 ## Retrospective Results
 
 Results of retrospectives can be found in the [retro.md](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/retro.md). The results are in Finnish.
-
 
 ## License
 
