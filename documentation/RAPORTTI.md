@@ -35,7 +35,7 @@ Ensimmäisen sprintin aikana kohtasimme merkittäviä aikataulutuksen haasteita.
 Pylint-työkalun puuttuminen projektin alkuvaiheessa johti merkittävään jälkisiivoustarpeeseen koodissamme. Tämä korosti koodin laadunvarmistuksen ja jatkuvan tarkistuksen tärkeyttä.
 
 ### Arkkitehtuurin Selkeys
-Tiimillämme ei ollut aluksi selkeää kuvaa projektin arkkitehtuurista, mikä johti tiedostojen sijoittumiseen vääriin paikkoihin.
+Tiimillämme ei ollut aluksi selkeää kuvaa projektiAda Rautiainen, Jani Kuulas, Joel Weinitschke, Juhani Kataja, Timo Palonevan arkkitehtuurista, mikä johti tiedostojen sijoittumiseen vääriin paikkoihin.
 
 ## Mikä Tuntui Turhalta
 Retrospektiivien pitäminen kurssin retrospektiivi-tekniikoiden mukaisesti tuntui turhalta pienessä tiimissä. Vaikka retrospektiivit itsessään olivat hyödyllisiä, ne eivät tuoneet esiin kovin monia epäkohtia. Tämä johtui osittain siitä, että tiimimme oli pieni ja kommunikaatio oli tehokasta. Lisäksi tiimimme oli hyvin samanhenkinen, mikä johti siihen, että tiimimme jäsenet olivat hyvin samalla sivulla projektin tavoitteiden ja suunnan suhteen.
