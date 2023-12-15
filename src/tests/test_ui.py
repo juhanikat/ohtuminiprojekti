@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from entities.reference import Reference
 from services.reference_manager import ReferenceManager
@@ -95,5 +95,46 @@ class TestUi(unittest.TestCase):
         mock_new.assert_called_with("key", "value")
         self.assertEqual(result, ("key", "value"))
         self.assertEqual(result2, None)
-            
 
+    @patch('builtins.input', side_effect=['title', '', ''])
+    @patch('builtins.print')
+    def test_manager_search_with_valid_input(self, mock_print, mock_input):
+        self.ui.manager = Mock()
+        self.ui.manager.get_all_fields.return_value = ['title']
+        self.ui.manager.search.return_value = ["reference"]
+        result = self.ui.manager_search()
+
+        self.ui.manager.get_all_fields.assert_called_once()
+        self.ui.manager.search.assert_called_with({})
+        mock_input.assert_called()
+        mock_print.assert_called_with("Value must not be empty!")
+        self.assertEqual(result, ["reference"])
+
+    @patch('builtins.input', side_effect=[''])
+    @patch('builtins.print')
+    def test_manager_search_empty_input(self, mock_print, mock_input):
+
+        self.ui.manager = Mock()
+        self.ui.manager.get_all_fields.return_value = ['title']
+        self.ui.manager.search.return_value = []
+        result = self.ui.manager_search()
+
+        self.ui.manager.get_all_fields.assert_called_once()
+        self.ui.manager.search.assert_called_with({})
+        mock_input.assert_called()
+        mock_print.assert_called_with('Possible fields: title\n')
+        self.assertEqual(result, [])
+
+    @patch('builtins.input', side_effect=['not_title', ''])
+    @patch('builtins.print')
+    def test_manager_search_with_bad_field(self, mock_print, mock_input):
+        self.ui.manager = Mock()
+        self.ui.manager.get_all_fields.return_value = ['title']
+        self.ui.manager.search.return_value = []
+        self.ui.manager_search()
+
+        self.ui.manager.get_all_fields.assert_called_once()
+        self.ui.manager.search.assert_called_with({})
+        mock_input.assert_called()
+        mock_print.assert_called_with(
+            "No references with a value for 'not_title'")
