@@ -85,7 +85,7 @@ Exported BibTeX files are stored in the following directory: src/exports/bibtex_
 
 ## Retrospective Results
 
-Results of retrospectives can be found in the [retro.md](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/retro.md). The results are in Finnish.
+Results of retrospectives can be found in the [RETRO](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/retro.md). The results are in Finnish.
 
 ## License
 
@@ -93,4 +93,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Final Report
 
-Final report can be found here: https://docs.google.com/document/d/10RyUnW48cSrjnNHImfXvpRZsE8eLRd8iAOwUgEvMtjI/edit
+Final report can be found here: [RAPORTTI](https://github.com/juhanikat/ohtuminiprojekti/blob/main/documentation/RAPORTTI.md)
