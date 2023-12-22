@@ -1,4 +1,4 @@
-# Projekti raportti
+# Projektiraportti
 
 ## Tiimin jäsenet
 - Ada Rautiainen 
@@ -7,9 +7,9 @@
 - Juhani Kataja
 - Timo Paloneva
 
-## Mitä Sujui Hyvin
+## Mikä Sujui Hyvin
 ### Kommunikointi
-Ryhmämme kommunikointiprosessi oli poikkeuksellisen sujuva ja tehokas. Asiakastapaamisten jälkeen, otimme tärkeäksi järjestää kasvokkaisia tapaamisia, joissa keskustelimme projektin edistymisestä ja pidimme retrospektiivejä. Näissä tapaamisissa suunnittelimme myös tulevan sprintin tehtävät ja strategiat. Viikon mittaan pidimme yhteyttä keskenämme aktiivisesti käyttäen hyväksemme Discordia, mikä mahdollisti jatkuvan dialogin ja nopeat päätökset.
+Ryhmämme kommunikointiprosessi oli poikkeuksellisen sujuva ja tehokas. Asiakastapaamisten jälkeen näimme tärkeäksi järjestää kasvokkain tapaamisia, joissa keskustelimme projektin edistymisestä ja pidimme retrospektiivejä. Näissä tapaamisissa suunnittelimme myös tulevan sprintin tehtävät ja strategiat. Viikon mittaan pidimme yhteyttä keskenämme aktiivisesti käyttäen hyväksemme Discordia, mikä mahdollisti jatkuvan dialogin ja nopeat päätökset.
 
 ### Pariohjelmointi
 Osa tiimistämme kokeili pariohjelmointia kahdessa sprintissä, ja se todettiin mukavaksi, hyödylliseksi sekä opettavaiseksi. Tämä menetelmä ei ainoastaan parantanut koodin laatua, vaan myös edisti tiimin jäsenten välistä oppimista ja ymmärrystä.
@@ -22,7 +22,7 @@ Tiimimme oli hyvä tarjoamaan tukea ja apua toisilleen. Tämä ei ainoastaan aut
 
 ## Missä Olisi Parannettavaa
 ### Alkujärjestelyt
-Projektin alkuvaiheen organisointi olisi tarvinnut selkeästi parempaa suunittelua. Ensimmäinen kunnollinen suunnittelukokous järjestettiin vasta tiistai-iltana, jolloin aikaa valmistautua sprintin aloitukseen jäi vain kaksi päivää. Tämä asetti projektin aikataulutuksen heti alusta alkaen haasteelliseen tilanteeseen.
+Projektin alkuvaiheen organisointi olisi tarvinnut selkeästi parempaa suunnittelua. Ensimmäinen kunnollinen suunnittelukokous järjestettiin vasta tiistai-iltana, jolloin aikaa valmistautua sprintin aloitukseen jäi vain kaksi päivää. Tämä asetti projektin aikataulutuksen heti alusta alkaen haasteelliseen tilanteeseen.
 
 ### Rajapintojen Sopiminen
 Kohtasimme haasteita etenkin projektin ensimmäisellä viikolla, kun yritimme sopia rajapinnoista ja toiminnallisuuksista ennen kuin perustavanlaatuiset ohjelmaoliot oli määritelty ja toteutettu. Tämä johti kommunikaation ja koordinaation haasteisiin projektin alkuvaiheessa.
@@ -35,7 +35,7 @@ Ensimmäisen sprintin aikana kohtasimme merkittäviä aikataulutuksen haasteita.
 Pylint-työkalun puuttuminen projektin alkuvaiheessa johti merkittävään jälkisiivoustarpeeseen koodissamme. Tämä korosti koodin laadunvarmistuksen ja jatkuvan tarkistuksen tärkeyttä.
 
 ### Arkkitehtuurin Selkeys
-Tiimillämme ei ollut aluksi selkeää kuvaa projektiAda Rautiainen, Jani Kuulas, Joel Weinitschke, Juhani Kataja, Timo Palonevan arkkitehtuurista, mikä johti tiedostojen sijoittumiseen vääriin paikkoihin.
+Tiimillämme ei ollut aluksi selkeää kuvaa projektin arkkitehtuurista, mikä johti tiedostojen sijoittumiseen vääriin paikkoihin.
 
 ## Mikä Tuntui Turhalta
 Retrospektiivien pitäminen kurssin retrospektiivi-tekniikoiden mukaisesti tuntui turhalta pienessä tiimissä. Vaikka retrospektiivit itsessään olivat hyödyllisiä, ne eivät tuoneet esiin kovin monia epäkohtia. Tämä johtui osittain siitä, että tiimimme oli pieni ja kommunikaatio oli tehokasta. Lisäksi tiimimme oli hyvin samanhenkinen, mikä johti siihen, että tiimimme jäsenet olivat hyvin samalla sivulla projektin tavoitteiden ja suunnan suhteen.
